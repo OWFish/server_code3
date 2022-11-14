@@ -1,0 +1,56 @@
+dofile("handle_conf.lua")
+
+local f = nil
+
+function init()
+	f = io.open("msg_handle.cc", "w");
+end
+
+function w(data)
+	if f ~= nil then
+		f:write(data)
+	end
+end
+
+function gen_func(l)
+	local func_hdr = "void %s(DataPacketReader &in, CDBDataClient* client)\n{\n"
+	w(string.format(func_hdr, l.func)
+	
+	if (l.actorid == nil or l.actorid) then
+		w("\tActorId actor_id = 0;\n\tin >> actor_id;\n")		
+	end
+	
+	if l.in_list ~= nil then
+		if l.in_count ~= nil and l.in_count then
+			
+		end
+		for i = 1, #l.in_list do
+			local tn = typename[l.in_list[i]]
+			if tn == nil then print("invalid config!cmd:"..l.cmd) end
+			w(string.format("%s src_%d;\n", tn, i))
+			w(string.format("in >> src_%d", i))
+			
+		end
+	end
+end
+
+function gen()
+	w("/*\n** Lua binding: tolua\n** Generated automatically by lua  "..os.date()..".\n*/")
+	w("\n\n#include \"StdAfx.h\"\n")
+	
+	-- include file
+	for i = 1, #conf do
+		local l = conf[i]
+		if l.inc then
+			w("#include \""..l.inc.."\"\n")
+		end
+	end
+	
+	for i = 1, #conf do
+		local l = conf[i]
+		gen_func(l)
+	end
+end
+
+init()
+gen()

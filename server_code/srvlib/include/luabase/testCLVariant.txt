@@ -1,0 +1,160 @@
+local function printexpr(expr, match)
+  local n, e= loadstring("return ("..expr..")")
+  if not n then
+    print(e)
+  else
+    e = n()
+    if match and match ~= e then
+      print("###########################################\n["..expr.."] = "..tostring(e).." not matched for wanted "..tostring(match).."\n###########################################")
+    else 
+      print("["..expr.."] = "..tostring(e))
+    end
+  end
+end
+
+function main(sysarg)
+  var = CCLVariant:new(5)--从数字构造    
+  print(getmetatable(var).__mode)
+
+  --__add测试 
+  print("----------------------------------------------------")
+  printexpr("var + 5", 10)               --数字 + 数字 = 数字 
+  printexpr("var + \"abc\"", "5abc")           --数字 + 字符串 = 字符串 
+  printexpr("var + CCLVariant:new(6)", 11) --数字 + 数字 = 数字         
+  printexpr("var + CCLVariant:new(\"6\")", 11) --数字 + 数字 = 数字   
+  printexpr("var + \"6\"", 11) --数字 + 数字 = 数字
+  printexpr("CCLVariant:new(\"ABC\") + CCLVariant:new(6)", "ABC6") --数字 + 字符串 = 字符串 
+  printexpr("CCLVariant:new(\"ABC\") + CCLVariant:new(\"XYZ\")", "ABCXYZ")--字符串 + 字符串 = 字符串
+  
+  --__sub测试          
+  print("----------------------------------------------------")
+  printexpr("var - 2", 3)       
+  printexpr("var - \"abc\"", 5)     
+  printexpr("var - \"3\"", 2)
+  printexpr("var - CCLVariant:new(8)", -3)       
+  printexpr("var - CCLVariant:new(\"8\")", -3)
+  printexpr("CCLVariant:new(\"abc\") - CCLVariant:new(8)", nil)   
+  printexpr("CCLVariant:new(\"abc\") - CCLVariant:new(\"xyz\")", nil)     
+
+  --__mul测试
+  print("----------------------------------------------------")
+  printexpr("var * 2", 10)
+  printexpr("var * \"abc\"", 0)
+  printexpr("var * \"3\"", 15)
+  printexpr("var * CCLVariant:new(8)", 40)   
+  printexpr("var * CCLVariant:new(\"8\")", 40)
+  printexpr("CCLVariant:new(\"abc\") * CCLVariant:new(8)", nil)
+  printexpr("CCLVariant:new(\"abc\") * CCLVariant:new(\"xyz\")", nil)  
+
+  --__div测试
+  print("----------------------------------------------------")
+  printexpr("var / 2", 2.5)
+  printexpr("var / \"abc\"", 0)
+  printexpr("var / \"3\"", 5/3)
+  printexpr("var / CCLVariant:new(8)", 5/8)   
+  printexpr("var / CCLVariant:new(\"2\")", 2.5)   
+  printexpr("CCLVariant:new(\"abc\") * CCLVariant:new(8)", nil)
+  printexpr("CCLVariant:new(\"abc\") * CCLVariant:new(\"xyz\")", nil)   
+
+  --__mod测试
+  print("----------------------------------------------------")
+  printexpr("var % 2", 1)
+  printexpr("var % \"abc\"", 0)
+  printexpr("var % \"3\"", 2)
+  printexpr("var % CCLVariant:new(8)", 5)    
+  printexpr("var % CCLVariant:new(\"8\")", 5)
+  printexpr("CCLVariant:new(\"abc\") % CCLVariant:new(8)", nil)
+  printexpr("CCLVariant:new(\"abc\") % CCLVariant:new(\"xyz\")", nil)
+  
+  --__newindex测试        
+  print("----------------------------------------------------")
+  var.x = 1  --设置成员
+  var.y = 2
+  var.size = { width = 100, height = 50 } --从表中设置成员
+
+  --__index测试        
+  print("----------------------------------------------------")
+  printexpr("var.x..\":\"..var.y..\"/\"..var.size.width..\":\"..var.size.height") --读取成员
+
+  --[[__call测试
+  print("----------------------------------------------------")
+  var.str1 = "hellow 123"
+  var.uz = 55
+  var.uz2 = 66
+  var.uz = nil
+  var.str2 = "你好"
+  printexpr("var:test()")--]]
+   
+  
+  --__eq测试        
+  print("----------------------------------------------------")
+  printexpr("var.x == var.y", false)  --读取成员，原始原始    
+  printexpr("CCLVariant:new(5) == CCLVariant:new(5)", true)   
+  printexpr("CCLVariant:new(5) ~= CCLVariant:new(5)", false)      
+  printexpr("CCLVariant:new(2) == CCLVariant:new(3)", false)
+  printexpr("CCLVariant:new(2) ~= CCLVariant:new(3)", true)
+  printexpr("CCLVariant:new(5) == 5", false)    --false LUA不支持==、!=、<=、>=的不同类型之间的运算符重载 
+  printexpr("CCLVariant:new(5) ~= 5", true)
+  printexpr("CCLVariant:new(3) == CCLVariant:new(\"3\")", true)  
+  printexpr("CCLVariant:new(3) ~= CCLVariant:new(\"3\")", false)   
+  printexpr("CCLVariant:new(3) == CCLVariant:new(\"3aa\")", false)
+  printexpr("CCLVariant:new(3) ~= CCLVariant:new(\"3aa\")", true)
+  printexpr("CCLVariant:new(\"ABC\") == CCLVariant:new(\"ABC\")", true)   
+  printexpr("CCLVariant:new(\"ABC\") ~= CCLVariant:new(\"ABC\")", false) 
+  printexpr("CCLVariant:new(\"ABC\") == \"ABC\"", false)  --false LUA不支持==、!=、<=、>=的不同类型之间的运算符重载
+  printexpr("CCLVariant:new(\"ABC\") ~= \"ABC\"", true)    
+  printexpr("CCLVariant:new(\"XYZ\") == 3", false) --false LUA不支持==、!=、<=、>=的不同类型之间的运算符重载       
+  printexpr("CCLVariant:new(\"XYZ\") ~= 3", true)     
+  printexpr("3 == CCLVariant:new(3)", false)   --false LUA不支持==、!=、<=、>=的不同类型之间的运算符重载
+  printexpr("3 ~= CCLVariant:new(3)", true)  
+  
+  --__lt测试  
+  print("----------------------------------------------------")
+  printexpr("CCLVariant:new(5) < CCLVariant:new(5)", false)  
+  printexpr("CCLVariant:new(5) > CCLVariant:new(5)", false)  
+  printexpr("CCLVariant:new(5) < CCLVariant:new(6)", true)  
+  printexpr("CCLVariant:new(5) > CCLVariant:new(6)", false)
+  printexpr("CCLVariant:new(6) > CCLVariant:new(5)", true)
+  printexpr("CCLVariant:new(6) < CCLVariant:new(5)", false)       
+  printexpr("CCLVariant:new(5) < CCLVariant:new(\"5\")", false)
+  printexpr("CCLVariant:new(5) > CCLVariant:new(\"5\")", false)
+  printexpr("CCLVariant:new(5) < CCLVariant:new(\"6\")", true)
+  printexpr("CCLVariant:new(5) > CCLVariant:new(\"6\")", false)   
+  printexpr("CCLVariant:new(6) > CCLVariant:new(\"5\")", true)
+  printexpr("CCLVariant:new(6) < CCLVariant:new(\"5\")", false)
+  
+  --__le测试       
+  print("----------------------------------------------------")
+  printexpr("CCLVariant:new(5) <= CCLVariant:new(5)", true)      
+  printexpr("CCLVariant:new(5) >= CCLVariant:new(5)", true)
+  printexpr("CCLVariant:new(5) <= CCLVariant:new(6)", true)  
+  printexpr("CCLVariant:new(5) >= CCLVariant:new(6)", false)  
+  printexpr("CCLVariant:new(6) >= CCLVariant:new(5)", true)
+  printexpr("CCLVariant:new(6) <= CCLVariant:new(5)", false)     
+  printexpr("CCLVariant:new(5) <= CCLVariant:new(\"5\")", true)
+  printexpr("CCLVariant:new(5) >= CCLVariant:new(\"5\")", true)
+  printexpr("CCLVariant:new(5) <= CCLVariant:new(\"6\")", true)
+  printexpr("CCLVariant:new(5) >= CCLVariant:new(\"6\")", false)
+  printexpr("CCLVariant:new(6) >= CCLVariant:new(\"5\")", true)
+  printexpr("CCLVariant:new(6) <= CCLVariant:new(\"5\")", false)
+  
+  --__unm测试                             
+  print("----------------------------------------------------")
+  printexpr("-CCLVariant:new(\"35\")", -35)
+  
+  --__len测试                     
+  print("----------------------------------------------------")
+  printexpr("#var", 3)
+  
+  --__concat测试                     
+  print("----------------------------------------------------")
+  printexpr("CCLVariant:new(5)..6", "56")
+  printexpr("CCLVariant:new(\"abcdef\")..CCLVariant:new(\"XYZ\")", "abcdefXYZ")     
+  printexpr("CCLVariant:new(\"abcdef\")..\"123\"", "abcdef123")        
+  printexpr("CCLVariant:new(\"abcdef\")..654", "abcdef654")
+   
+   
+  
+  var = nil
+  collectgarbage("collect")  
+end

@@ -1,0 +1,12 @@
+class LuaSocket
+{
+	static LuaSocket* NewSocket();
+	static void Release(LuaSocket* s, int step);
+	static double GetHostByName(const char* host);
+
+	int send(char* buf);
+	int connect(const double addr, const int port, bool block = true);
+	const char* readline(int& retval);
+	const char* readall(int& retval);
+};
+

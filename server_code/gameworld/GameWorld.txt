@@ -1,0 +1,109 @@
+﻿GameServer =
+{
+	--服务器名称
+	ServerName = "gameworld_1",
+	ServerIndex = 6,
+	WebHost = "192.168.1.97",
+	WebPort = "8080",
+	
+	--数据库连接配置
+	SQL = 
+	{ 
+		Host = "127.0.0.1", 
+		--Host = "192.168.17.22",		
+		--Host = "192.168.17.201",
+		--Host = "192.168.1.72",
+		--Host = "192.168.17.24", 
+		Port = 3306, 
+		DBName = "actor", 
+		DBUser = "root", 
+		--DBPass = "jdusVRPm8XI+vYJb5gNZiw==" 
+		DBPass = "jdusVRPm8XI+vYJb5gNZiw=="
+	}, --0987abc123
+	
+	GlobalSQL = 
+	{ 
+		Host = "192.168.17.228",
+		Port = 3306, 
+		DBName = "globaldata", 
+		DBUser = "root", 
+		DBPass = "jdusVRPm8XI+vYJb5gNZiw=="
+	}, --0987abc123
+
+	--网关绑定地址和端口
+	GateService = 
+	{ 
+		Address = "0.0.0.0", 
+		Port = 6001
+	},
+
+	--会话服务器地址和端口
+	LoginServer = 
+	{ 
+		Address = "192.168.17.201", 
+		Port = 10101
+	},
+	
+	--Log服务器绑定地址和端口
+	LogServer = 
+	{ 
+		Address = "192.168.17.201", 
+		--Address = "127.0.0.1", 
+		Port = 7001
+	},
+	--数据服务器绑定地址和端口
+	DbServer = 
+	{ 
+		--Address = "192.168.17.201", 
+		Address = "127.0.0.1", 
+		--Address = "192.168.17.24", 
+		Port = 5001
+	},
+	
+	-- 跨服服务地址和端口
+	CrossService = 
+	{
+		Address = "0.0.0.0", 
+		Port = 6030
+	},
+	-- 中心服务器
+	CenterServer =
+	{
+		Address = "192.168.17.226",
+		Port = 8001
+	},
+	
+	--[[
+	--AM服务器地址和端口
+	AMServer = 
+	{ 
+		Host = "192.168.0.76", 
+		Port = 5660
+	},
+	--好友服务器配置
+	FriendServer = 
+	{ 
+		--好友服务器地址和端口
+		Server = 
+		{
+			Host = "192.168.0.209", 
+			Port = 5900
+		},
+		--好友网关地址和端口（用户连接）
+		Gate = 
+		{
+			Host = "61.144.23.107", 
+			Port = 15908
+		},
+	},
+	
+	--连接到后台管理服务器
+	MgrServer = 
+	{ 
+		Host = "192.168.0.209", 
+		Port = 8500
+	},
+	--]]
+}
+
+

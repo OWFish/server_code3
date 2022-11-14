@@ -1,0 +1,19 @@
+﻿LoggerServer = 
+{
+	--数据库连接相关
+	SQL = 
+	{ 
+		Host = "localhost", 	
+		Port = 3306, 
+		DBName = "test1_acc", 
+		DBUser = "root", 
+		DBPass = "W31ktTYBSvAs8dF1PiflWQ==" 
+	}, --123456abc
+	--服务器参数配置
+	Server = 
+		{ 
+			BindAddress = "0.0.0.0", 
+			Port = 7001 ,
+			ServiceName="LoggerServer"
+		},
+}
