@@ -26686,8 +26686,7 @@ static int tolua_server_RobotData_new00_local(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* function: LRedis::Zadd 
-
+/* function: LRedis::Zadd */
 #ifndef TOLUA_DISABLE_tolua_server_LRedis_Zadd00
 static int tolua_server_LRedis_Zadd00(lua_State* tolua_S)
 {
@@ -26718,7 +26717,6 @@ static int tolua_server_LRedis_Zadd00(lua_State* tolua_S)
 #endif
 }
 #endif //#ifndef TOLUA_DISABLE
-*/
 
 /* method: NewSocket of class  LuaSocket */
 #ifndef TOLUA_DISABLE_tolua_server_LuaSocket_NewSocket00
@@ -29203,7 +29201,7 @@ int tolua_server_open (lua_State* tolua_S)
   tolua_endmodule(tolua_S);
   tolua_module(tolua_S,(char*)"LRedis",0);
   tolua_beginmodule(tolua_S,(char*)"LRedis");
-   //tolua_function(tolua_S,(char*)"Zadd",tolua_server_LRedis_Zadd00);
+   tolua_function(tolua_S,(char*)"Zadd",tolua_server_LRedis_Zadd00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"LuaSocket","LuaSocket","",NULL);
   tolua_beginmodule(tolua_S,(char*)"LuaSocket");

@@ -1,4 +1,4 @@
-#ifndef TG_REDIS_H
+ï»¿#ifndef TG_REDIS_H
 #define TG_REDIS_H
 
 #include <stdio.h>
@@ -14,7 +14,7 @@ class CRedisConnect
 public:
 	CRedisConnect();
 	CRedisConnect(const std::shared_ptr<tg_redis_param>& param);
-	
+
 	~CRedisConnect();
 
 	bool connect();
@@ -31,47 +31,47 @@ public:
 
 	bool lrange_all(std::string key, std::vector<int>& out_data);
 
-	///ÉèÖÃÒ»¸ö×Ö·û´®µ½key
+	///ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½key
 	bool set(const char* key, const char* value, unsigned int expire = 0);
 
-	///ÉèÖÃÒ»¸ö×Ö·û´®µ½hash
+	///ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½hash
 	bool hset(const char* hash_name, const char* key, const char* value);
 
 	bool rpush(const char* list_name, const char* value);
 
 	bool  lset(const char* list_name, int index, const char* value);
 
-	///Ìí¼ÓÒ»¸öÊý¾Ýµ½ÓÐÐò¼¯ºÏÖÐ
+	///ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½ï¿½ò¼¯ºï¿½ï¿½ï¿½
 	bool zadd(const char* set_name, int score, const char* value);
 
-	///¸ù¾Ý¶ÔÓ¦µÄÊý¾ÝµÃµ½Ò»¸öÅÅÃû
+	///ï¿½ï¿½ï¿½Ý¶ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÃµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int64_t  zrank(const char* set_name, const char* value);
 
-	///¸ù¾ÝkeyµÃµ½Ò»¸övalue
+	///ï¿½ï¿½ï¿½ï¿½keyï¿½Ãµï¿½Ò»ï¿½ï¿½value
 	std::shared_ptr<CRedisResult> get(const char* key);
 
-	///»ñÈ¡hashÄÚµÄvalue
+	///ï¿½ï¿½È¡hashï¿½Úµï¿½value
 	std::shared_ptr<CRedisResult> hget(const char* hash_name, const char* key);
 
-	///´ÓÓÐÐò¼¯ºÏÖÐµÃµ½Êý¾Ý
+	///ï¿½ï¿½ï¿½ï¿½ï¿½ò¼¯ºï¿½ï¿½ÐµÃµï¿½ï¿½ï¿½ï¿½ï¿½
 	std::shared_ptr<CRedisResult> zrange(const char* set_name, uint64_t start, uint64_t end);
 
-	///´ÓÁÐ±íÖÐ»ñÈ¡Êý¾Ý
+	///ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ð»ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 	std::shared_ptr<CRedisResult> lrange(const char* list_name, size_t start, size_t end);
 
-	///ÁÐ±í³¤¶È
+	///ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½
 	uint64_t  llen(const char* list_name);
 
 	std::shared_ptr<CRedisResult> lpop(const char* list_name);
 
-	///ÒÆ³ýlistµÄÎ²²¿²¢ÇÒ·µ»Ø
+	///ï¿½Æ³ï¿½listï¿½ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½Ò·ï¿½ï¿½ï¿½
 	std::shared_ptr<CRedisResult> rpop(const char* list_name);
 
 	bool exists(const char* key);
 
 	bool del(const char* key);
 
-	///µ±Ç°Ê¹ÓÃÖÐµÄDB
+	///ï¿½ï¿½Ç°Ê¹ï¿½ï¿½ï¿½Ðµï¿½DB
 	int db_no();
 
 private:

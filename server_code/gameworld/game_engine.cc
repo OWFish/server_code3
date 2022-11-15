@@ -50,7 +50,6 @@ GameEngine::GameEngine()
 	fuben_mgr_ = new FuBenMgr();
 	ai_mgr_ = new AiMgr();
 	guild_mgr_ = new GuildMgr();
-	redis_config_ = std::make_shared<tg_redis_param>();
 	
 	InitStaticVar();
 
@@ -2204,22 +2203,7 @@ void GameEngine::OnAddLoginList(GameInterMsg& msg)
 
 void GameEngine::SetRedisCfg(const char * host, int port, int db_index, const char * pw)
 {
-	//auto param_ptr = std::make_shared<tg_redis_param>();
-	//param_ptr->db_index = 1;
-	//param_ptr->host = "192.168.3.40";
-	//param_ptr->port = 6379;
-	//param_ptr->timeout.tv_sec = 3;
-	//param_ptr->timeout.tv_usec = 0;
-	//param_ptr->pwd = "0987abc123";
-	//
-	//CRedisConnect pConnect(param_ptr);
-	//
-	//if (!pConnect.connect())
-	//{
-	//	std::cout << pConnect.get_last_err() << std::endl;
-	//	return;
-	//}
-
+	std::shared_ptr< tg_redis_param> redis_config_ = std::make_shared<tg_redis_param>();
 	redis_config_->db_index = db_index;
 	redis_config_->host = host;
 	redis_config_->port = port;

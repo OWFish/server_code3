@@ -200,6 +200,7 @@ bool GameServerConfig::readServerConfig(GameServer* game_srv)
 		return false;
 	}
 	
+	
 	if (openFieldTable("Redis"))
 	{
 		char			db_host[128];			//数据库地址
@@ -211,11 +212,12 @@ bool GameServerConfig::readServerConfig(GameServer* game_srv)
 		port = getFieldInt("Port");
 		db_index = getFieldInt("ServerIndex");
 		getFieldStringBuffer(("DBPass"), db_pw, sizeof(db_pw));
-		
+
 		GameEngine* ge = game_srv->Engine();
 		ge->SetRedisCfg(db_host, port, db_index, db_pw);
 		closeTable();
 	}
+	
 
 	//网关服务配置
 	if (openFieldTable("GateService"))

@@ -587,7 +587,9 @@ bool GuildMgr::LoadGuildChat(SQLConnection & sql, Guild & guild)
 			if (actor_data)
 			{
 				log.zs_lv_ = actor_data->zhuansheng_lv;
+				log.headID = actor_data->headimage;
 			}
+
 			found = true;
 		}
 		else // 有可能这个玩家已经离开公会了，就从系统玩家数据里取
@@ -603,6 +605,7 @@ bool GuildMgr::LoadGuildChat(SQLConnection & sql, Guild & guild)
 				log.vip_level_ = data->vip_level;
 				log.zs_lv_ = data->zhuansheng_lv;
 				log.level_ = data->level;
+				log.headID = data->headimage;
 				found = true;
 			}
 		}
@@ -617,6 +620,7 @@ bool GuildMgr::LoadGuildChat(SQLConnection & sql, Guild & guild)
 			log.vip_level_ = 0;
 			log.zs_lv_ = 0;
 			log.level_ = 0;
+			log.headID = 0;
 		}
 
 		pRow = sql.NextRow();

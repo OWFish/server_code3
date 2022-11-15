@@ -7,7 +7,7 @@
 //tolua_begin
 namespace LRedis
 {
-	//void Zadd(char* rankname,int score,char* actordata);
+	void Zadd(char* rankname,int score,char* actordata);
 }
 //tolua_end
 

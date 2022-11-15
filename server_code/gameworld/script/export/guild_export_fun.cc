@@ -358,6 +358,7 @@ void writeChatLog(void * guild, void * pack)
 			dp << (uint8_t)log.zs_lv_;
 			dp << (uint16_t)log.level_;
 			dp << guild_ptr->name_;
+			dp << (int)log.headID;
 		}
 		//dp << (int)log.time_;
 	}

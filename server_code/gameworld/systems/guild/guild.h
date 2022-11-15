@@ -32,6 +32,7 @@ struct GuildChatLog // 公会聊天消息记录
 	uint8_t zs_lv_;
 	uint16_t level_;
 	int status;
+	int headID;
 };
 
 struct GuildStoreLog // 公会商店记录

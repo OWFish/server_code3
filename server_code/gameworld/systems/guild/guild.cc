@@ -490,6 +490,7 @@ void Guild::AddChatLog(uint8_t type, const char* content, Actor* actor)
 		log.pos_ = (uint8_t)actor->GetGuildSystem()->GetGuildPos();
 		log.zs_lv_ = actor->GetBasicData()->zhuansheng_lv;
 		log.level_ = actor->GetBasicData()->level;
+		log.headID = actor->GetBasicData()->headimage;
 	}
 	chat_update_ = true;
 }

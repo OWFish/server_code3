@@ -964,13 +964,14 @@ bool isActor(void* et)
 
 	return false;
 }
-
+//判断当前对象是不是宝宝类型
 bool isPet(void* et)
 {
-	//if (et)
-	//{
-	//	return (((Entity*)et)->GetType() == enMonster && ((Monster*)et)->is_pet_);
-	//}
+	Monster* tempEt = ((Monster*)et);
+	if (tempEt)
+	{
+		return  tempEt->GetMonType() == MonsterType_Pet;
+	}
 
 	return false;
 }

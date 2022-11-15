@@ -1,4 +1,4 @@
-#include "RedisConnect.h"
+ï»¿#include "RedisConnect.h"
 
 CRedisConnect::CRedisConnect()
 {
@@ -7,8 +7,8 @@ CRedisConnect::CRedisConnect()
 }
 
 CRedisConnect::CRedisConnect(const std::shared_ptr<tg_redis_param>& param)
-:_context_ptr(nullptr)
-, _param_ptr(param)
+	:_context_ptr(nullptr)
+	, _param_ptr(param)
 {
 }
 
@@ -143,11 +143,11 @@ bool CRedisConnect::lrange_all(std::string key, std::vector<int>& out_data)
 		return false;
 	}
 
-	redisReply** replyVector = reply->get_reply()->element;//»ñÈ¡Êý×éÖ¸Õë
+	redisReply** replyVector = reply->get_reply()->element;//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 	out_data.reserve(len);
 	for (int i = 0; i < len; i++)
 	{
-		std::string temp = (*replyVector)->str;//±éÀúredisReply*Êý×é,´æÈëvectorÏòÁ¿
+		std::string temp = (*replyVector)->str;//ï¿½ï¿½ï¿½ï¿½redisReply*ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½vectorï¿½ï¿½ï¿½ï¿½
 		int a = std::atoi(temp.c_str());
 		out_data.push_back(a);
 		replyVector++;

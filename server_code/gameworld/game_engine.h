@@ -6,7 +6,6 @@
 #include "actor/global_mail_mgr.h"
 #include "actor/tianti.h"
 #include "../../common/redis/redis_def.h"
-#include <memory>
 
 class EntityMgr;
 struct GlobalVar;
@@ -40,8 +39,8 @@ public:
 
 	typedef struct stCrossServerInfo
 	{
-		int sid; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
-		int sType; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		int sid; //·þÎñÆ÷id
+		int sType; //·þÎñÀàÐÍ
 		stCrossServerInfo(int id, int type)
 		{
 			sid = id;
@@ -52,22 +51,22 @@ public:
 	friend class LoginQueue;
 public:
 	static int64_t			game_tick_;
-	//È«ï¿½Ö¹ï¿½ï¿½Ü½Å±ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½
+	//È«¾Ö¹¦ÄÜ½Å±¾ÎÄ¼þÂ·¾¶
 	static const char*		GlobalScriptFile;
 
-	//static const int MAX_SERVER_ID = 65535; //ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½public:
+	//static const int MAX_SERVER_ID = 65535; //×î¶àµÄ·þÎñÆ÷ÊýÁ¿public:
 	GameEngine();
 	~GameEngine();
 
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½
+	//Æô¶¯Âß¼­ÒýÇæ
 	bool StartEngine();
-	//Í£Ö¹ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½
+	//Í£Ö¹Âß¼­ÒýÇæ
 	void StopEngine();
-	//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//ÊÇ·ñÆô¶¯Íê±Ï
 	bool IsStarted() { return started_; }
 
 	/*
-	* Comments:ï¿½á¹©ï¿½Ó¿Ú¸ï¿½ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½Ê±ï¿½ï¿½
+	* Comments:Ìá¹©½Ó¿Ú¸øÊý¾Ý·þÎñÆ÷Á¬½Óµ÷ÓÃ£¬µ±Á¬½ÓÉÏµÄÊ±ºò
 	* @Return void:
 	*/
 	void InitComponent()
@@ -82,7 +81,7 @@ public:
 		//gamewar_mgr_.Load();
 	}
 
-	// ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½Ä£ï¿½é£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«
+	// ¼ì²éÃ¿¸ö´ÓÊý¾Ý¿â¼ÓÔØÊý¾ÝµÄÄ£¿é£¬Êý¾ÝÊÇ·ñ¼ÓÔØÍêÈ«
 	inline bool isInitComponentFinished()
 	{
 		return sysvar_mgr_.isLoad();
@@ -114,7 +113,7 @@ public:
 	//inline RankingMgr& GetRankingMgr() { return rankingMgr_; }
 	inline GlobalVarMgr& GetGlobalVarMgr() { return globalVarMgr_; }
 	//inline DbRankMgr& GetDbRankMgr() { return db_rank_mgr_; }
-	//inline TeamMgr& GetTeamMgr() { return teamMgr_;    //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ }
+	//inline TeamMgr& GetTeamMgr() { return teamMgr_;    //»ñÈ¡¶ÓÎé¹ÜÀíÆ÷ }
 	//inline MiscMgr& GetMiscMgr() { return miscMgr_; }
 	inline MsgMgr& GetMsgMgr() { return msgMgr_; }
 	inline Tianti& GetTianti(void) { return tianti_; }
@@ -124,7 +123,7 @@ public:
 	//inline GameWarMgr& GetGameWarMgr() { return gamewar_mgr_; }
 	//inline FightMgr& GetFightMgr() { return fight_mgr_; }
 
-	//ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½boGenNewSeriesï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¾ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½Æ·Ïµï¿½Ðºï¿½
+	//ÉêÇëÓÃ»§ÎïÆ·¶ÔÏó£¬boGenNewSeries²ÎÊýÓÃÓÚ¾ö¶¨ÊÇ·ñ·ÖÅäÐÂµÄÎïÆ·ÏµÁÐºÅ
 //#ifndef _MEMORY_TRACE_
 //	inline ItemData* AllocUserItem(const bool isNew)
 //	{
@@ -132,7 +131,7 @@ public:
 //		item->sign_data = NULL;
 //		return item;
 //	}
-//	// ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Æ·
+//	// Ïú»ÙÓÃ»§ÎïÆ·
 //	inline void DestroyUserItem(ItemData* item)
 //	{
 //		if (item->sign_data)
@@ -154,7 +153,7 @@ public:
 //		return item;
 //	}
 //
-//	// ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Æ·
+//	// Ïú»ÙÓÃ»§ÎïÆ·
 //	inline void _DestroyUserItem(ItemData* item, const char* fn, int line)
 //	{
 //		item_alloc_._Free(item, fn, line);
@@ -164,15 +163,15 @@ public:
 //	inline int64_t AllocItemSeries() { return item_alloc_.allocSeries(); }
 
 	/*
-	* Comments: ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	* Param EntitySCBHandle & handle: SCBï¿½ï¿½ï¿½
+	* Comments: ´´½¨½Å±¾ÊÂ¼þ²ÎÊý¶ÔÏó
+	* Param EntitySCBHandle & handle: SCB¾ä±ú
 	* @Return ScriptCallbackParam*:
 	*/
 	ScriptEvent* AllocScriptEvent(SEventHandle& handle);
 
 
 	/*
-	* Comments: ï¿½ï¿½ï¿½Ù½Å±ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	* Comments: Ïú»Ù½Å±¾Ê±¼ä²ÎÊý¶ÔÏó
 	* Param EntitySCBHandle & handle:
 	* @Return void:
 	*/
@@ -180,128 +179,128 @@ public:
 
 
 	/*
-	* Comments: ï¿½ï¿½È¡ï¿½Å±ï¿½ï¿½Øµï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½
+	* Comments: »ñÈ¡½Å±¾»Øµ÷Ê±¼ä¶ÔÏó
 	* Param const EntitySCBHandle & handle:
 	* @Return ScriptCallbackParam*:
 	*/
 	ScriptEvent* GetScriptEvent(const SEventHandle& handle);
 
-	//ï¿½ï¿½ï¿½ë¶¨Ê±ï¿½ï¿½Ï¢
+	//ÉêÇë¶¨Ê±ÏûÏ¢
 	/*inline TimeCallMsg* AllocMonsterActionTimeCall()
 	{
 		return monsterActionCallAlloc_.Alloc();
 	}
-	//ï¿½ï¿½ï¿½Ù¶ï¿½Ê±ï¿½ï¿½Ï¢
+	//Ïú»Ù¶¨Ê±ÏûÏ¢
 	inline void DestroyMonsterActionTimeCall(TimeCallMsg* pMsg)
 	{
 		monsterActionCallAlloc_.Free(pMsg);
 	}*/
 
-	//ï¿½ï¿½È¡Í¬ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ß¼ï¿½ï¿½ï¿½ï¿½Úºï¿½Ê±ï¿½ï¿½
+	//»ñÈ¡Í¬²½µÄÏµÍ³Âß¼­ÈÕÆÚºÍÊ±¼ä
 	inline SystemTime& getSysTime() { return cur_sys_time_; }
-	//ï¿½ï¿½È¡Í¬ï¿½ï¿½ï¿½ï¿½ÏµÍ³int64_t
+	//»ñÈ¡Í¬²½µÄÏµÍ³int64_t
 	inline int64_t getTickCount() { return game_tick_; }
-	//ï¿½ï¿½È¡Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Öµ
+	//»ñÈ¡Í¬²½µÄÂß¼­¶ÌÈÕÆÚÊ±¼äÖµ
 	inline unsigned int getMiniDateTime() { return now_sec_; }
 	/*
-	* Comments: ï¿½ï¿½È¡Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ãµï¿½Ç°ï¿½ÄµÎ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½
-	* @Return int: ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	* Comments: »ñÈ¡Ò»¸öËæ»úÊý£¬ÔÝÊ±ÓÃµ±Ç°µÄµÎ´ðÊýÁ¿£¬Õâ¸ö¿ÉÄÜ»¹»áÐÞ¸Ä
+	* @Return int: ·µ»ØÒ»¸öËæ»úÊý
 	*/
 	inline unsigned int GetRandValue() { return wrandvalue(); }
 
-	//ï¿½ï¿½ï¿½ï¿½aiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//·µ»Øai¹ÜÀíÆ÷
 	inline AiMgr* GetAiMgr() { return ai_mgr_; }
 
-	//ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//·µ»Ø¶¯×÷¹ÜÀíÆ÷
 	//inline ActionMgr& GetActionMgr() { return action_mgr_; }
 
-	// ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ·µ»ØÏµÍ³±äÁ¿¹ÜÀíÆ÷
 	inline SysVarMgr& GetSysVarMgr() { return sysvar_mgr_; }
-	//ï¿½ï¿½È¡ï¿½ï¿½ï¿½Å±ï¿½ï¿½æ´¢ï¿½Ä¶ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½
+	//»ñÈ¡¸ø½Å±¾´æ´¢µÄ¶¯Ì¬Êý¾Ý
 	inline CLVariant& GetDyanmicVar() { return dynamicVar_; }
 
 	void SetGateMgr(GameGateMgr* gate_mgr) { gate_mgr_ = gate_mgr; }
 	void PostMsg(GameInterMsg& msg);
 
-	// ï¿½ï¿½ï¿½Óºï¿½É¾ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½user,type 0 ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ 1 ï¿½ï¿½É¾ï¿½ï¿½
+	// Ôö¼ÓºÍÉ¾³ýÆµµÀµÄuser,type 0 ÊÇÔö¼Ó£¬ 1 ÊÇÉ¾³ý
 	void ChannelUser(int channelId, int para, Actor* actor, int type = 0);
 	/*
-	* Comments:È«ï¿½Ö¹ã²¥
-	* Param int channelId:Æµï¿½ï¿½id
-	* Param int para:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
-	* Param const char * buf:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	* Comments:È«¾Ö¹ã²¥
+	* Param int channelId:ÆµµÀid
+	* Param int para:¸½´ø²ÎÊý£¬±ÈÈç°ïÅÉid
+	* Param const char * buf:Êý¾ÝÄÚÈÝ
 	* Param int len:
 	* @Returns void:
 	*/
 	void BroadCast(int channelId, int para, const char* buf, size_t len);
 
-	// È«ï¿½ï¿½ï¿½ã²¥
+	// È«·þ¹ã²¥
 	void BroadCast(const char* buff, size_t len);
 
-	// ï¿½ï¿½È¡ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½bufï¿½ï¿½
+	// »ñÈ¡¸ñÊ½»¯ºóµÄÊý¾Ý£¬±£´æÔÚbufÖÐ
 	int FormatTipmsg(char* buf, int size, const char* msg, int tipType);
 
 	/*
-	* Comments: È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	* Param char * sTipmsg: tipmsgï¿½ï¿½Ö¸ï¿½ï¿½
-	* Param int nTipmsgType: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	* Comments: È«·þ·¢²¼¹«¸æ
+	* Param char * sTipmsg: tipmsgµÄÖ¸Õë
+	* Param int nTipmsgType: ¹«¸æµÄÏÔÊ¾ÀàÐÍ£¬ÁÄÌìÀ¸£¬»¹ÊÇµ¯³ö¿òµÈ
 	* @Return void:
 	*/
 	void BroadcastTipmsg(const char* sTipmsg, int level, int nTipmsgType = ttTipmsgWindow);
 
 	/*
-	* Comments:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óªï¿½ï¿½tipmsg
-	* Param int nCampId:ï¿½ï¿½Óªï¿½ï¿½id
-	* Param char * sTipmsg: ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	* Param int nTipmsgType:ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ê¾Î»ï¿½ï¿½
+	* Comments:·¢²¼ÕóÓªµÄtipmsg
+	* Param int nCampId:ÕóÓªµÄid
+	* Param char * sTipmsg: ÌáÊ¾µÄÀàÐÍ
+	* Param int nTipmsgType:ÌáÊ¾µÄÏÔÊ¾Î»ÖÃ
 	* @Return void:
 	*/
 	void BroadcastCampTipmsg(int nCampId, const char* sTipmsg, int nTipmsgType = ttTipmsgWindow);
 	/*
-	* Comments:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½tipmsg
-	* Param int nCampId:ï¿½ï¿½ï¿½Éµï¿½id
-	* Param char * sTipmsg: ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	* Comments:·¢²¼°ïÅÉµÄtipmsg
+	* Param int nCampId:°ïÅÉµÄid
+	* Param char * sTipmsg: ÌáÊ¾µÄÀàÐÍ
 	* @Return void:
 	*/
 	void BroadcastGuildTipmsg(int guild, const char* sTipmsg);
 	/*
-	* Comments: Í¨ï¿½ï¿½IDï¿½ã²¥tipmsg
-	* Param int nTipmsgID: ï¿½ï¿½Ê¾ï¿½ï¿½ID
-	* Param int nTipmsgType: ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	* Comments: Í¨¹ýID¹ã²¥tipmsg
+	* Param int nTipmsgID: ÌáÊ¾µÄID
+	* Param int nTipmsgType: ÌáÊ¾µÄÄÚÈÝ
 	* @Return void:
 	*/
 	void BroadcastTipmsgWithID(int nTipmsgID, int nTipmsgType = ttTipmsgWindow);
 
-	// ï¿½ï¿½Óªï¿½ã²¥
+	// ÕóÓª¹ã²¥
 	void BroadCampTipmsgWithParams(int camp, int tip, int type = ttTipmsgWindow, ...);
-	// ï¿½ï¿½ï¿½É¹ã²¥
+	// °ïÅÉ¹ã²¥
 	void BroadGuildTipmsgWithParams(int gid, int tip, int type = ttTipmsgWindow, ...);
 
 	/*
-	* Comments: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ã²¥
-	* Param int nTipmsgID: ï¿½ï¿½Ê¾ï¿½ï¿½ID
-	* Param int nTipmsgType: ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
-	* Param char * sParam1:ï¿½ï¿½ï¿½ï¿½1
-	* Param char * sParam2:ï¿½ï¿½ï¿½ï¿½2
-	* Param char * sParam3:ï¿½ï¿½ï¿½ï¿½3
+	* Comments: ´ø²ÎÊýÈ«·þ¹ã²¥
+	* Param int nTipmsgID: ÌáÊ¾µÄID
+	* Param int nTipmsgType: ÌáÊ¾µÄÏÔÊ¾ÀàÐÍ
+	* Param char * sParam1:²ÎÊý1
+	* Param char * sParam2:²ÎÊý2
+	* Param char * sParam3:²ÎÊý3
 	* @Return void:
 	*/
 	void BroadTipmsgWithParams(int tip, int type = ttTipmsgWindow, ...);
 
 	/*
-	* Comments:ï¿½ï¿½Ê½ï¿½ï¿½ÏµÍ³ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ó¿Ú¿ï¿½ï¿½Ô¸ï¿½ï¿½â²¿Ê¹ï¿½ï¿½
-	* Param int nTipmsgID: ÏµÍ³ï¿½ï¿½Ê¾ï¿½ï¿½ID
-	* Param int nTipmsgType: ÏµÍ³ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	* Param ...: ï¿½É±ï¿½ï¿½ï¿½ï¿½
-	* @Return int: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
+	* Comments:¸ñÊ½»¯ÏµÍ³ÌáÊ¾µÄ×Ö·û´®,Õâ¸ö½Ó¿Ú¿ÉÒÔ¸øÍâ²¿Ê¹ÓÃ
+	* Param int nTipmsgID: ÏµÍ³ÌáÊ¾µÄID
+	* Param int nTipmsgType: ÏµÍ³ÌáÊ¾µÄÀàÐÍ
+	* Param ...: ¿É±ä²ÎÊý
+	* @Return int: ·µ»ØÊý¾Ý³¤¶È
 	*/
 	int FormatTipmsg(int nTipmsgID, va_list& args, int nTipmsgType = ttTipmsgWindow);
 
 	/*
-	* Comments: Í¬ï¿½ï¿½Óªï¿½ã²¥
-	* Param int nOccupation: ï¿½ï¿½Óªï¿½ï¿½ï¿½ï¿½
-	* Param char * pData: ï¿½ã²¥ï¿½ï¿½ï¿½ï¿½
-	* Param size_t size: ï¿½ã²¥ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
+	* Comments: Í¬ÕóÓª¹ã²¥
+	* Param int nOccupation: ÕóÓªÀàÐÍ
+	* Param char * pData: ¹ã²¥Êý¾Ý
+	* Param size_t size: ¹ã²¥Êý¾Ý³¤¶È
 	* @Return void:
 	*/
 	inline void BroadCastCamp(int camp, const char* data, size_t size)
@@ -312,10 +311,10 @@ public:
 	}
 
 	/*
-	* Comments: Í¬ï¿½ï¿½ï¿½É¹ã²¥
-	* Param int nOccupation: ï¿½ï¿½Óªï¿½ï¿½ï¿½ï¿½
-	* Param char * pData: ï¿½ã²¥ï¿½ï¿½ï¿½ï¿½
-	* Param size_t size: ï¿½ã²¥ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
+	* Comments: Í¬°ïÅÉ¹ã²¥
+	* Param int nOccupation: ÕóÓªÀàÐÍ
+	* Param char * pData: ¹ã²¥Êý¾Ý
+	* Param size_t size: ¹ã²¥Êý¾Ý³¤¶È
 	* @Return void:
 	*/
 	/*inline void BroadCastGuild(int guildid, const char* data, size_t size)
@@ -328,7 +327,7 @@ public:
 	}*/
 
 	/*
-	* Comments: ï¿½ã²¥ï¿½ï¿½Óªï¿½ï¿½Ê¾
+	* Comments: ¹ã²¥ÕóÓªÌáÊ¾
 	* Param const void * pData1:
 	* Param size_t size1:
 	* Param const void * pData2:
@@ -350,17 +349,17 @@ public:
 		//}
 	}
 
-	//ï¿½ï¿½È¡ï¿½ã²¥ï¿½ï¿½ï¿½Ýµï¿½Ö¸ï¿½ï¿½
+	//»ñÈ¡¹ã²¥Êý¾ÝµÄÖ¸Õë
 	inline char* GetBroadcastDataPtr()
 	{
 		return broadcastBuff_;
 	}
 
-	// ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½c++ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½luaï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹Ø±ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½pid==0ï¿½ï¿½ï¿½ï¿½Ê¾sysidï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½Îªval
+	// ÉèÖÃÄ³¸öÍøÂçÏûÏ¢ÊÇc++´¦Àí£¬»¹ÊÇlua´¦Àí£¬»òÊÇ¹Ø±ÕÏµÍ³£¬Èç¹ûpid==0£¬±íÊ¾sysidÏÂËùÓÐ¶¼ÉèÖÃÎªval
 	void SetNetMsgRoute(int sysId, int pid, int val);
-	// ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½dbï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½c++ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½luaï¿½ï¿½ï¿½ï¿½
+	// ÉèÖÃÄ³¸ödb·µ»ØÏûÏ¢ÊÇc++´¦Àí£¬»¹ÊÇlua´¦Àí
 	void SetDbRetRoute(int sysid, int cmd, int val);
-	// ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Í·ï¿½
+	// ¶¨ÆÚÄÚ´æÊÍ·Å
 	void GC();
 	void FreeMsgPack(GameInterMsg& msg);
 
@@ -423,27 +422,27 @@ public:
 	}
 
 
-	// hdlï¿½ï¿½ï¿½ï¿½ÒªÍ¨Öªï¿½ï¿½ï¿½ï¿½Òµï¿½handleï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½npcï¿½Ä½Å±ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò£ï¿½typeï¿½ï¿½0ï¿½ï¿½Ê¾È«ï¿½ï¿½npcï¿½ï¿½1ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½È«ï¿½ï¿½npc
+	// hdlÊÇÐèÒªÍ¨ÖªµÄÍæ¼ÒµÄhandle£¬ÖØË¢ÍênpcµÄ½Å±¾ºó»áÍ¨Öªµ½Õâ¸öÍæ¼Ò£¬type£º0±íÊ¾È«¾Önpc£¬1±íÊ¾²âÊÔÓÃµÄÈ«¾Önpc
 	bool PostReloadGlobaNpc(EntityHandle hdl = 0, int type = 0);
 	bool ReloadGlobalNpc(EntityHandle hdl = 0, int type = 0);
 
 	/*
-	* Comments:ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½
-	* Param INOUT char * pInput:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
-	* @Return int:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½Ö·ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
+	* Comments:ÆÁ±ÎÒ»¸ö×Ö·û
+	* Param INOUT char * pInput:ÊäÈëµÄ×Ö·û´®
+	* @Return int:·µ»ØÆÁ±ÎÁËµÄ×Ö·ûµÄ¸öÊý
 	*/
 	int Filter(char* pInput);
 
 	/*
-	* Comments: Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ð³
-	* Param char * pInput:ï¿½Ö·ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
-	* @Return bool:ï¿½ï¿½Ð³ï¿½ï¿½ï¿½ï¿½trueï¿½ï¿½ï¿½ï¿½ï¿½ò·µ»ï¿½false
+	* Comments: Ò»¸ö×Ö·û´®ÊÇ·ñºÍÐ³
+	* Param char * pInput:×Ö·û´®Ö¸Õë
+	* @Return bool:ºÍÐ³·µ»Øtrue£¬·ñÔò·µ»Øfalse
 	*/
 	bool IsStrInvalid(char* pInput);
 
-	bool ReloadFilterDb(); //ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+	bool ReloadFilterDb(); //ÖØÐÂ×°ÔØÆÁ±Î×Ö·û¿â
 
-	// ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½
+	// µ¥Ôª²âÊÔ
 	void RunAllTests();
 
 	GameRoute* GetGameRoute(int sid, bool create = false);
@@ -466,33 +465,33 @@ public:
 	void GameInit();
 protected:
 	void OnRoutine();
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½
+	//µ¥´ÎÂß¼­´¦Àí
 	void LogicRun();
-	//ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½Â¼ï¿½Ë¢ï¿½ï¿½Ê±ï¿½ï¿½
+	//¼ì²éÈ«·þÊÂ¼þË¢ÐÂÊ±¼ä
 	void CheckRefreshTime();
 
 	void MiscRun();
 
 
-	//ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã£ï¿½
+	//Âß¼­ÒýÇæÆô¶¯º¯Êý£¨ÓÉÖ÷Âß¼­Ïß³ÌÆô¶¯Ê±µ÷ÓÃ£©
 	void EngineStarted();
-	//ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ß³Ì¼ï¿½ï¿½ï¿½ï¿½Ë³ï¿½Ç°ï¿½ï¿½ï¿½Ã£ï¿½
+	//Âß¼­ÒýÇæÍ£Ö¹º¯Êý£¨ÓÉÖ÷Âß¼­Ïß³Ì¼´½«ÍË³öÇ°µ÷ÓÃ£©
 	void EngineStoped();
 private:
-	//ï¿½ï¿½È«ï¿½Ö±ï¿½ï¿½ï¿½ï¿½Ä³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//×öÈ«¾Ö±äÁ¿µÄ³õÊ¼»¯¹¤×÷
 	void InitStaticVar();
-	//ï¿½Í·Å³ï¿½ï¿½ï¿½ï¿½Ðµï¿½È«ï¿½Ö±ï¿½ï¿½ï¿½
+	//ÊÍ·Å³ÌÐòÖÐµÄÈ«¾Ö±äÁ¿
 	void ReleaseStaticVar();
 
 	void SetupSQLConnection(SQLConnection* sql);
 private:
-	//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ???
+	//³õÊ¼»¯±£Áô³¡¾° ???
 	bool InitReserveScene();
 	bool InitStaticFuben();
-	//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPC
+	//³õÊ¼»¯±£ÁôNPC
 	bool InitReserveNpc();
 	bool LoadActorBasicData();
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ìµï¿½ï¿½×ºÍ¶ï¿½
+	// ÉèÖÃÏß³ÌµÄÇ×ºÍ¶È
 	void ProcessSysMsg();
 	void OnRecvSysMsg(GameInterMsg& msg);
 
@@ -509,8 +508,8 @@ private:
 	void OnGatewayDump(GameInterMsg& msg);
 	void OnDbServerMsg(GameInterMsg& msg);
 	void OnActorLogout(GameInterMsg& msg);
-	//void OnActorLogin(GameInterMsg& msg);	//ï¿½É°æ£¬ ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
-	void ActorLogin(GateUser* user, int serverId, const char* pf, const char* pfid, const char* appid); //ï¿½ï¿½Îªï¿½ßµï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//void OnActorLogin(GameInterMsg& msg);	//¾É°æ£¬ ×ßÄÚ²¿ÏûÏ¢Á÷³Ì
+	void ActorLogin(GateUser* user, int serverId, const char* pf, const char* pfid, const char* appid); //¸ÄÎª×ßµÇÂ½¶ÓÁÐÁ÷³Ì
 	void OnCreateImageActor(GameInterMsg& msg);
 	void OnCrossWarMsg(GameInterMsg& msg);
 	void OnCenterServerMsg(GameInterMsg& msg);
@@ -520,35 +519,35 @@ private:
 	void OnChangeUserName(GameInterMsg& msg);
 	void OnCrossRelogin(GameInterMsg& msg);
 public:
-	static CTimeStatisticMgr*		timeStatisticMgr_;     //Ê±ï¿½ï¿½Í³ï¿½ï¿½ï¿½ï¿½ï¿½
+	static CTimeStatisticMgr*		timeStatisticMgr_;     //Ê±¼äÍ³¼Æ×é¼þ
 	static GlobalVar*				global_var_;
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢×ªï¿½ï¿½ï¿½Ä±ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½Ê¾ï¿½Ø±Õ£ï¿½0ï¿½ï¿½Ê¾c++ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½luaï¿½ï¿½ï¿½ï¿½
+	// ÍøÂçÏûÏ¢×ª·¢µÄ±êÖ¾£¬Èç¹ûÊÇ1±íÊ¾¹Ø±Õ£¬0±íÊ¾c++´¦Àí£¬·ñÔò¶¼ÊÇlua´¦Àí
 	char							net_msg_route[256][256];
-	// dbï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ 0ï¿½ï¿½Ê¾c++ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½luaï¿½ï¿½ï¿½ï¿½
+	// db·µ»ØÏûÏ¢´¦Àí±êÖ¾ 0±íÊ¾c++´¦Àí£¬·ñÔò¶¼ÊÇlua´¦Àí
 	char							db_ret_route[256][256];
 
-	static void PostMsgToGE(void* cb);	// ï¿½ï¿½asyncworkerï¿½Øµï¿½ï¿½Äºï¿½ï¿½ï¿½
-	static void AsyncWorkLuaCallback(void* cb);	// asyncworkderÖ´ï¿½ï¿½ï¿½ï¿½ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½
+	static void PostMsgToGE(void* cb);	// ¸øasyncworker»Øµ÷µÄº¯Êý
+	static void AsyncWorkLuaCallback(void* cb);	// asyncworkderÖ´ÐÐÍêºóµÄ»Øµ÷º¯Êý
 
 public:
 	/*
-	* Comments:ï¿½Ü¹ï¿½Êµï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ÜµÄ·ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½Ê¾ï¿½ï¿½Ï¢
-	* Param const char* sFormat: ï¿½ï¿½Ï¢ï¿½ï¿½Ê½
-	* Param int nType:  ÏµÍ³ï¿½ï¿½Ê¾ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	* Comments:ÄÜ¹»ÊµÏÖ²ÎÊý¸ñÊ½»¯¹¦ÄÜµÄ·¢ËÍÏµÍ³ÌáÊ¾ÏûÏ¢
+	* Param const char* sFormat: ÏûÏ¢¸ñÊ½
+	* Param int nType:  ÏµÍ³ÌáÊ¾ÏÔÊ¾µÄÀàÐÍ
 	* @Return void:
 	*/
 	void SendTipmsgWithArgs(ActorId sActorId, const char* fmt, va_list& args, int type);
 
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ·¢ËÍÏûÏ¢¸øÄ³¸öÍæ¼Ò£¬¿ÉÒÔÔÚÁ¬·þµÄÆäËü·þ
 	void SendTipmsg(ActorId sActorId, const char* sTipmsg, int type = ttTipmsgWindow);
 
 	void SendTipWithId(ActorId sActorId, int msgid, int type = ttTipmsgWindow, ...);
 
-	// ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ð§ï¿½Ô±ï¿½Ê¶ï¿½ï¿½DBServer
+	// ·¢ËÍ¼ì²éÓÐÐ§ÐÔ±êÊ¶µ½DBServer
 	void SendEnableCheckValid(bool flag);
 
 	void ChangeToOnlineList(DataPacket& pack);
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//¸ù¾ÝÍæ¼Òid ·µ»Ø¸ÃÍæ¼ÒÔÚÄÄ¸ö·þÎñÆ÷
 	int GetActorInServerId(ActorId aid);
 
 	void SetDbConfig(const char* host, int port, const char* db_name, const char* user, const char* pw);
@@ -566,16 +565,16 @@ private:
 
 	bool				started_;
 
-	SystemTime			cur_sys_time_;			//ï¿½ï¿½Ç°ÏµÍ³ï¿½ï¿½ï¿½Úºï¿½Ê±ï¿½ä£¬Ã¿ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+	SystemTime			cur_sys_time_;			//µ±Ç°ÏµÍ³ÈÕÆÚºÍÊ±¼ä£¬Ã¿¸öÑ­»·¸üÐÂÒ»´Î
 	GameGateMgr*		gate_mgr_;
 	EntityMgr*			entity_mgr_;
-	ActorAsynMgr*		actor_asyn_mgr_;	// ï¿½ì²½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	ActorDataMgr*		actor_data_mgr_;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½
-	LoginQueue*			login_queue_;		// ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½
-	RankingSystem*		ranking_system_;		// ï¿½ï¿½ï¿½Ð°ï¿½ÏµÍ³
-	GuildMgr*			guild_mgr_;			// ï¿½ï¿½ï¿½ï¿½ÏµÍ³
+	ActorAsynMgr*		actor_asyn_mgr_;	// Òì²½»Øµ÷¹ÜÀíÆ÷
+	ActorDataMgr*		actor_data_mgr_;	// Íæ¼ÒÊý¾Ý¹ÜÀí
+	LoginQueue*			login_queue_;		// µÇÂ½¶ÓÁÐ
+	RankingSystem*		ranking_system_;		// ÅÅÐÐ°ñÏµÍ³
+	GuildMgr*			guild_mgr_;			// ¹«»áÏµÍ³
 	//ConsignmentMgr		consignmentMgr_;
-	//RankingMgr			rankingMgr_;	//ï¿½ï¿½ï¿½Ð°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//RankingMgr			rankingMgr_;	//ÅÅÐÐ°ñ¹ÜÀíÆ÷
 	//CampMgr		camp_mgr_;
 	GlobalVarMgr		globalVarMgr_;
 	//DbRankMgr			db_rank_mgr_;
@@ -584,36 +583,36 @@ private:
 	//DymItemConfig		dym_item_conf;
 
 	FuBenMgr*			fuben_mgr_;
-	SecondTime			now_sec_;		//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
-	SecondTime			EventRefreshTime_;	// ï¿½ï¿½ï¿½ï¿½22ï¿½ï¿½ï¿½Ë¢ï¿½Â´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½
+	SecondTime			now_sec_;		//µ±Ç°¶ÌÈÕÆÚÊ±¼ä
+	SecondTime			EventRefreshTime_;	// ÓÃÓÚ22µãµÄË¢ÐÂ´¦Àí£¨»î¶¯¡¢ÈÎÎñµÈÂß¼­£©
 
-	//TeamMgr				teamMgr_; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	//ItemAllocator		item_alloc_;	//ï¿½Ã»ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//TeamMgr				teamMgr_; //¶ÓÎé¹ÜÀíÆ÷
+	//ItemAllocator		item_alloc_;	//ÓÃ»§ÎïÆ·ÉêÇëÆ÷
 
-	//ObjPool<TimeCallMsg> monsterActionCallAlloc_; //ï¿½ï¿½ï¿½ï¶¯ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
+	//ObjPool<TimeCallMsg> monsterActionCallAlloc_; //¹ÖÎï¶¯×÷¶¨Ê±µ÷ÓÃ
 
-	GameMap				reserveMapData_;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Í¼ï¿½ï¿½ï¿½ï¿½
-	Scene*				reserveScene_;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Å±ï¿½ï¿½ï¿½NPC
-	ScriptNpc*			globalFuncNpc_;	//Ö´ï¿½ï¿½È«ï¿½ÖµÄ½Å±ï¿½ï¿½ï¿½ï¿½ï¿½
+	GameMap				reserveMapData_;//±£Áô³¡¾°µÄµØÍ¼Êý¾Ý
+	Scene*				reserveScene_;//±£Áô³¡¾°£¬ÓÃÓÚ´æ·Å±£ÁôNPC
+	ScriptNpc*			globalFuncNpc_;	//Ö´ÐÐÈ«¾ÖµÄ½Å±¾º¯Êý
 	ScriptNpc*			globalFuncNpc_rese_;
 
-	AiMgr*               ai_mgr_; //aiï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	//FightMgr			fight_mgr_; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	AiMgr*               ai_mgr_; //ai¹ÜÀíÆ÷
+	//FightMgr			fight_mgr_; //¾º¼¼³¡¹ÜÀíÆ÷
 
 	SysVarMgr			sysvar_mgr_;
 
-	CLVariant			dynamicVar_;		//Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½db
+	CLVariant			dynamicVar_;		//Ò»¸öÓÃÀ´¸ø½Å±¾±£´æÈ«¾Ö±äÁ¿Êý¾ÝµÄ±äÁ¿£¬Êý¾Ý²»±£´ædb
 
-	QueueList<GameInterMsg>	inter_msg_;		//ï¿½Ú²ï¿½ï¿½ï¿½Ï¢ï¿½Ð±ï¿½
-	Mutex				inter_msg_lock_;		//ï¿½Ú²ï¿½ï¿½ï¿½Ï¢ï¿½Ð±ï¿½ï¿½ï¿½
+	QueueList<GameInterMsg>	inter_msg_;		//ÄÚ²¿ÏûÏ¢ÁÐ±í
+	Mutex				inter_msg_lock_;		//ÄÚ²¿ÏûÏ¢ÁÐ±íËø
 
-	char				broadcastBuff_[4096]; //ï¿½ã²¥ï¿½ï¿½Ï¢ï¿½Ãµï¿½
-	//ActionMgr			action_mgr_;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	char				broadcastBuff_[4096]; //¹ã²¥ÏûÏ¢ÓÃµÄ
+	//ActionMgr			action_mgr_;	// ¶¯×÷¹ÜÀíÆ÷
 
-	Timer				engine_report_t_;	// ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ß³Ìµï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
-	Timer				engine_60s_t_; // ï¿½ï¿½Ê±Ö´ï¿½ï¿½eventï¿½ï¿½Ê±ï¿½ï¿½
-	Timer				engine_5s_t_; // ï¿½ï¿½Ê±Ö´ï¿½ï¿½eventï¿½ï¿½Ê±ï¿½ï¿½
-	Timer				gc_t_;			// ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½Ú´ï¿½Ä¼ï¿½Ê±ï¿½ï¿½
+	Timer				engine_report_t_;	// ¼ì²éÓÎÏ·Ö÷Ïß³ÌµÄÊý¾Ý¿âÊÇ·ñ×èÈû
+	Timer				engine_60s_t_; // ¶¨Ê±Ö´ÐÐevent¼ÆÊ±Æ÷
+	Timer				engine_5s_t_; // ¶¨Ê±Ö´ÐÐevent¼ÆÊ±Æ÷
+	Timer				gc_t_;			// ¶¨ÆÚÊÍ·ÅÄÚ´æµÄ¼ÆÊ±Æ÷
 
 	//DcApiMgr			dcapi_mgr_;
 	DKMLogMgr			dkm_log_mgr_;
@@ -621,42 +620,42 @@ private:
 	LianfuMgr			lianfu_mgr_;
 	LianfuRank			lianfu_rank_;
 	//LianfuGuild			lianfu_guild_;
-	LFNetmsgMgr			lf_netmsg_mgr_;	//todo ï¿½Ôºï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½æ±¾
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	// ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ï¿½ï¿½gameworldï¿½ï¿½gatewayï¿½ï¿½ï¿½ï¿½Ï¢
+	LFNetmsgMgr			lf_netmsg_mgr_;	//todo ÒÔºó¸Ä³ÉÁ¬·þµÄÄÇ¸ö°æ±¾
+	// ¿ç·þÏà¹Ø
+	// ±£´æÃ¿¸öÁ¬½Ó¹ýÀ´µÄgameworldµÄgatewayµÄÐÅÏ¢
 	container::StaticArrayList<GameRoute*, MAX_SERVER_ID> gateway_routes_;
 
-	Vector<CrossServerInfo, 4>		cross_server_list_;		// Õ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½idï¿½Ð±ï¿½
-	ScriptEventHdlMgr		se_hdl_mgr_;	// Êµï¿½ï¿½Å±ï¿½ï¿½Øµï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	Vector<CrossServerInfo, 4>		cross_server_list_;		// Õ½¶··þµÄidÁÐ±í
+	ScriptEventHdlMgr		se_hdl_mgr_;	// ÊµÌå½Å±¾»Øµ÷ÊÂ¼þ¾ä±ú¹ÜÀíÆ÷
 
-	PFT_MBCS_CHAR				filterWords_;		//ï¿½ï¿½ï¿½Î´ï¿½ï¿½Ð±ï¿½
+	PFT_MBCS_CHAR				filterWords_;		//ÆÁ±Î´ÊÁÐ±í
 
-	char			db_host_[128];			//ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ö·
-	int				db_port_;				//ï¿½ï¿½ï¿½Ý¿ï¿½Ë¿ï¿½
-	char			db_name_[128];			//ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½
-	char			db_user_[128];			//ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
-	char			db_pw_[128];			//ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
+	char			db_host_[128];			//Êý¾Ý¿âµØÖ·
+	int				db_port_;				//Êý¾Ý¿â¶Ë¿Ú
+	char			db_name_[128];			//Êý¾Ý¿âÃû³Æ
+	char			db_user_[128];			//Êý¾Ý¿âÓÃ»§Ãû
+	char			db_pw_[128];			//Êý¾Ý¿âÓÃ»§ÃÜÂë
 
 	SQLConnection			global_sql_;
 
-	std::shared_ptr<tg_redis_param> redis_config_;
+	
 	std::shared_ptr<CRedisConnect> global_redis_;
 
-	GlobalMailMgr			global_mail_mgr_; //È«ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	Tianti					tianti_;  //ï¿½ï¿½ï¿½ï¿½
+	GlobalMailMgr			global_mail_mgr_; //È«·þÓÊ¼þ¹ÜÀíÆ÷
+	Tianti					tianti_;  //ÌìÌÝ
 
 public:
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÄ»ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ÃµÄ£ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½
-	bool				script_5s_timer_;	// ï¿½Ç·ñ´¥·ï¿½5sï¿½ï¿½
+	// ÕâÀï³öÏÖµÄ»ù±¾ÊÇµ÷ÊÔÓÃµÄ£¬ËæÊ±¿ÉÒÔÉ¾³ý
+	bool				script_5s_timer_;	// ÊÇ·ñ´¥·¢5sµÄ
 
-	int					gc_actor_cnt_;		// ï¿½ï¿½ï¿½ï¿½gcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int					gc_actor_cnt_;		// ´¥·¢gcµÄÔÚÏßÈËÊý
 
-	container::StaticHashTable<int, 4096 * 4> actor_online_list_;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+	container::StaticHashTable<int, 4096 * 4> actor_online_list_;//Íæ¼ÒÔÚÏßÐÅÏ¢
 };
 
 struct ActorIdPacket
 {
-	Actor* actor_; // Ä¿ï¿½ï¿½ï¿½ï¿½Òµï¿½Ö¸ï¿½ï¿½
+	Actor* actor_; // Ä¿±êÍæ¼ÒµÄÖ¸Õë
 	ActorId actor_id_;
 	DataPacket dp_;
 
