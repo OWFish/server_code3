@@ -14,7 +14,6 @@
 #include "systems/guild/guild.h"
 #include "systems/prestige/prestige_helper.h"
 #include "actor/tianti_mgr.h"
-#include "redis/RedisConnect.h"
 #include <iostream>
 
 

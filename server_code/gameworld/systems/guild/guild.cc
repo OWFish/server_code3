@@ -465,7 +465,7 @@ void Guild::AddGuildLog(unsigned char type, const char* name1, const char* name2
 	db->flushProtoPacket(pack);
 }
 
-void Guild::AddChatLog(uint8_t type, const char* content, Actor* actor)
+void Guild::AddChatLog(uint8_t type, const char* content, Actor* actor,int time)
 {
 	if (!content) return;
 	static GameEngine* ge = GetGameEngine();
@@ -477,7 +477,7 @@ void Guild::AddChatLog(uint8_t type, const char* content, Actor* actor)
 	chat_logs_.resize(chat_logs_.size() + 1);
 	GuildChatLog& log = chat_logs_[chat_logs_.size() - 1];
 	log.type_ = type;
-	log.time_ = ge->getMiniDateTime();
+	log.time_ = time;// ge->getMiniDateTime();
 	log.content_ = content;
 	if (actor)
 	{

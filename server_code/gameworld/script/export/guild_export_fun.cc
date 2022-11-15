@@ -323,11 +323,11 @@ int getGuildLevel(void * guild)
 	return ((Guild*)guild)->GetGuildLevel();
 }
 
-void addChatLog(void * guild, int type, const char * content, void * actor)
+void addChatLog(void * guild, int type, const char * content, void * actor,int time)
 {
 	if (!guild) return;
 
-	((Guild*)guild)->AddChatLog((uint8_t)type, content, (Actor*)actor);
+	((Guild*)guild)->AddChatLog((uint8_t)type, content, (Actor*)actor,time);
 }
 
 void writeChatLog(void * guild, void * pack)
@@ -344,8 +344,8 @@ void writeChatLog(void * guild, void * pack)
 	{
 		const GuildChatLog& log = logs[i];
 		dp << (uint8_t)log.type_;
+		dp << (int)log.time_;
 		dp << log.content_.c_str();
-
 		if (log.type_ == enGuildChatChat)
 		{
 			dp << (int)log.actor_id_;

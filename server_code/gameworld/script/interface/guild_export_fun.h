@@ -60,7 +60,7 @@ namespace LGuild
 	int getGuildLevel(void* guild);
 
 	// 添加一条聊天记录
-	void addChatLog(void* guild, int type, const char* content, void* actor = 0);
+	void addChatLog(void* guild, int type, const char* content, void* actor = 0,int time = 0);
 	// 把聊天消息写入到消息包中
 	void writeChatLog(void* guild, void* pack);
 

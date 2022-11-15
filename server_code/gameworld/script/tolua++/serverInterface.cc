@@ -20933,7 +20933,8 @@ static int tolua_server_LGuild_addChatLog00(lua_State* tolua_S)
      !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
      !tolua_isstring(tolua_S,3,0,&tolua_err) ||
      !tolua_isuserdata(tolua_S,4,1,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
+     !tolua_isnumber(tolua_S,5,1,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
  else
@@ -20943,8 +20944,9 @@ static int tolua_server_LGuild_addChatLog00(lua_State* tolua_S)
   int type = ((int)  tolua_tonumber(tolua_S,2,0));
   const char* content = ((const char*)  tolua_tostring(tolua_S,3,0));
   void* actor = ((void*)  tolua_touserdata(tolua_S,4,0));
+  int time = ((int)  tolua_tonumber(tolua_S,5,0));
   {
-   LGuild::addChatLog(guild,type,content,actor);
+   LGuild::addChatLog(guild,type,content,actor,time);
   }
  }
  return 0;

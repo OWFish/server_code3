@@ -152,7 +152,7 @@ public:
 	// 添加公会事件
 	void AddGuildLog(unsigned char type, const char* name1, const char* name2, int param1 = 0, int param2 = 0, int param3 = 0);
 	// 添加聊天记录
-	void AddChatLog(uint8_t type, const char* content, Actor* actor);
+	void AddChatLog(uint8_t type, const char* content, Actor* actor,int time);
 	//添加公会商店记录
 	void AddGuildStoreLog(ActorId actor_id, const char* name, int item_id);
 

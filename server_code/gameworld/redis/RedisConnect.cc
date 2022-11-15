@@ -1,4 +1,5 @@
 ﻿#include "RedisConnect.h"
+//#include "redis/hiredis/hiredis.h"
 
 CRedisConnect::CRedisConnect()
 {

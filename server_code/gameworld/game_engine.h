@@ -6,6 +6,7 @@
 #include "actor/global_mail_mgr.h"
 #include "actor/tianti.h"
 #include "../../common/redis/redis_def.h"
+#include "redis/RedisConnect.h"
 
 class EntityMgr;
 struct GlobalVar;
@@ -18,7 +19,6 @@ class LoginQueue;
 class GlobalMailMgr;
 class Tianti;
 class GuildMgr;
-class CRedisConnect;
 
 #define GLOBAL_TIME_FLUCTUATE	20
 #define GLOBAL_WEE_HOURS_TIME (22 * 60 * 60)
