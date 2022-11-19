@@ -6,10 +6,11 @@
 #include <string>
 
 #ifndef _WIN32
+#include "/redis/hiredis/hiredis.h"
 #else
 #include "redis/src/Win32_Interop/Win32_APIs.h"
-#endif
 #include "redis/hiredis/hiredis.h"
+#endif
 
 class CRedisResult
 {

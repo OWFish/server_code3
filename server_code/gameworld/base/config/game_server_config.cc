@@ -3,7 +3,6 @@
 #include "../StdAfx.h"
 #endif
 
-#include <iostream>
 const char GameServerConfig::ConfigFileName[] = ("GameWorld.txt");
 
 GameServerConfig::GameServerConfig()
@@ -27,7 +26,6 @@ void GameServerConfig::showError(const char* err)
 
 bool GameServerConfig::loadServerConfig(GameServer* game_srv)
 {
-	
 	bool boResult = false;
 	OutputMsg(rmTip, ("loading server config"));
 
@@ -51,7 +49,6 @@ bool GameServerConfig::loadServerConfig(GameServer* game_srv)
 bool GameServerConfig::throwLoadConfig(GameServer* game_srv)
 {
 	stream::MemoryStream ms(NULL);
-	
 	if (ms.loadFromFile(ConfigFileName) <= 0)
 	{
 		showErrorFormat(("unable to load from %s"), ConfigFileName);
@@ -60,13 +57,11 @@ bool GameServerConfig::throwLoadConfig(GameServer* game_srv)
 
 	if (!setScript((char*)ms.getMemory()))
 		return false;
-	
 	return readServerConfig(game_srv);
 }
 
 bool GameServerConfig::readServerConfig(GameServer* game_srv)
 {
-	
 	if (!openGlobalTable("GameServer"))
 		return false;
 
@@ -218,7 +213,6 @@ bool GameServerConfig::readServerConfig(GameServer* game_srv)
 		closeTable();
 	}
 	
-
 	//网关服务配置
 	if (openFieldTable("GateService"))
 	{

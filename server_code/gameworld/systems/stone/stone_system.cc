@@ -64,6 +64,17 @@ void StoneSystem::SetLevel(int posId, int level)
 	pSlotData.gem_lv = level;
 }
 
+int StoneSystem::GetTotalLv()
+{
+	int ret = 0;
+	for (int pos = EquipSlotType_Weapon; pos < EquipSlotType_Max; ++pos)
+	{
+		EquipSlotData &pSlotData = equip_data_->slot_data[pos];
+		ret += pSlotData.gem_lv;
+	}
+	return ret;
+}
+
 std::vector<int> StoneSystem::GetStoneData()
 {
 	std::vector<int> stoneList;

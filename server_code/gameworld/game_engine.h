@@ -5,7 +5,6 @@
 #include "lianfu/lf_netmsg_mgr.h"
 #include "actor/global_mail_mgr.h"
 #include "actor/tianti.h"
-#include "../../common/redis/redis_def.h"
 #include "redis/RedisConnect.h"
 
 class EntityMgr;

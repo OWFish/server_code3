@@ -8279,130 +8279,6 @@ static int tolua_server_LActor_refreshMiJi00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* function: LActor::getRainingFirstCacheByType */
-#ifndef TOLUA_DISABLE_tolua_server_LActor_getRainingFirstCacheByType00
-static int tolua_server_LActor_getRainingFirstCacheByType00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isnumber(tolua_S,1,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,2,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  int type = ((int)  tolua_tonumber(tolua_S,1,0));
-  {
-   void* tolua_ret = (void*)  LActor::getRainingFirstCacheByType(type);
-   tolua_pushuserdata(tolua_S,(void*)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,(char*)"#ferror in function 'getRainingFirstCacheByType'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* function: LActor::updateDynamicFirstCache */
-#ifndef TOLUA_DISABLE_tolua_server_LActor_updateDynamicFirstCache00
-static int tolua_server_LActor_updateDynamicFirstCache00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isnumber(tolua_S,1,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  int actor_id = ((int)  tolua_tonumber(tolua_S,1,0));
-  int type = ((int)  tolua_tonumber(tolua_S,2,0));
-  {
-   LActor::updateDynamicFirstCache(actor_id,type);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,(char*)"#ferror in function 'updateDynamicFirstCache'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* function: LActor::updateRanking */
-#ifndef TOLUA_DISABLE_tolua_server_LActor_updateRanking00
-static int tolua_server_LActor_updateRanking00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isnoobj(tolua_S,1,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   LActor::updateRanking();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,(char*)"#ferror in function 'updateRanking'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* function: LActor::getRankDataByType */
-#ifndef TOLUA_DISABLE_tolua_server_LActor_getRankDataByType00
-static int tolua_server_LActor_getRankDataByType00(lua_State* tolua_S)
-{
-	return LActor::getRankDataByType(tolua_S);
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* function: LActor::getRanking */
-#ifndef TOLUA_DISABLE_tolua_server_LActor_getRanking00
-static int tolua_server_LActor_getRanking00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isnumber(tolua_S,1,0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  int type = ((int)  tolua_tonumber(tolua_S,1,0));
-  void* et = ((void*)  tolua_touserdata(tolua_S,2,0));
-  {
-   int tolua_ret = (int)  LActor::getRanking(type,et);
-   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,(char*)"#ferror in function 'getRanking'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* function: LActor::getRankCacheByType */
 #ifndef TOLUA_DISABLE_tolua_server_LActor_getRankCacheByType00
 static int tolua_server_LActor_getRankCacheByType00(lua_State* tolua_S)
@@ -11933,6 +11809,64 @@ static int tolua_server_LActor_UpdataPvmRankOldData00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,(char*)"#ferror in function 'UpdataPvmRankOldData'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: LActor::GetZhulingToitalLv */
+#ifndef TOLUA_DISABLE_tolua_server_LActor_GetZhulingToitalLv00
+static int tolua_server_LActor_GetZhulingToitalLv00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isuserdata(tolua_S,1,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  void* actor = ((void*)  tolua_touserdata(tolua_S,1,0));
+  {
+   int tolua_ret = (int)  LActor::GetZhulingToitalLv(actor);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,(char*)"#ferror in function 'GetZhulingToitalLv'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: LActor::GetStoneTotalLv */
+#ifndef TOLUA_DISABLE_tolua_server_LActor_GetStoneTotalLv00
+static int tolua_server_LActor_GetStoneTotalLv00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isuserdata(tolua_S,1,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  void* actor = ((void*)  tolua_touserdata(tolua_S,1,0));
+  {
+   int tolua_ret = (int)  LActor::GetStoneTotalLv(actor);
+   tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,(char*)"#ferror in function 'GetStoneTotalLv'.",&tolua_err);
  return 0;
 #endif
 }
@@ -26705,7 +26639,7 @@ static int tolua_server_LRedis_Zadd00(lua_State* tolua_S)
 #endif
  {
   char* rankname = ((char*)  tolua_tostring(tolua_S,1,0));
-  int score = ((int)  tolua_tonumber(tolua_S,2,0));
+  long long score = ((long long)  tolua_tonumber(tolua_S,2,0));
   char* actordata = ((char*)  tolua_tostring(tolua_S,3,0));
   {
    LRedis::Zadd(rankname,score,actordata);
@@ -26715,6 +26649,55 @@ static int tolua_server_LRedis_Zadd00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,(char*)"#ferror in function 'Zadd'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: LRedis::GetRankList */
+#ifndef TOLUA_DISABLE_tolua_server_LRedis_GetRankList00
+static int tolua_server_LRedis_GetRankList00(lua_State* tolua_S)
+{
+	return LRedis::GetRankList(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: LRedis::GetRankListWithScore */
+#ifndef TOLUA_DISABLE_tolua_server_LRedis_GetRankListWithScore00
+static int tolua_server_LRedis_GetRankListWithScore00(lua_State* tolua_S)
+{
+	return LRedis::GetRankListWithScore(tolua_S);
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: LRedis::RemoveSetMemberByRange */
+#ifndef TOLUA_DISABLE_tolua_server_LRedis_RemoveSetMemberByRange00
+static int tolua_server_LRedis_RemoveSetMemberByRange00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isstring(tolua_S,1,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  char* rankname = ((char*)  tolua_tostring(tolua_S,1,0));
+  int start = ((int)  tolua_tonumber(tolua_S,2,0));
+  int end = ((int)  tolua_tonumber(tolua_S,3,0));
+  {
+   bool tolua_ret = (bool)  LRedis::RemoveSetMemberByRange(rankname,start,end);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,(char*)"#ferror in function 'RemoveSetMemberByRange'.",&tolua_err);
  return 0;
 #endif
 }
@@ -27428,11 +27411,6 @@ int tolua_server_open (lua_State* tolua_S)
    tolua_function(tolua_S,(char*)"setRoleTitle",tolua_server_LActor_setRoleTitle00);
    tolua_function(tolua_S,(char*)"changeMiJi",tolua_server_LActor_changeMiJi00);
    tolua_function(tolua_S,(char*)"refreshMiJi",tolua_server_LActor_refreshMiJi00);
-   tolua_function(tolua_S,(char*)"getRainingFirstCacheByType",tolua_server_LActor_getRainingFirstCacheByType00);
-   tolua_function(tolua_S,(char*)"updateDynamicFirstCache",tolua_server_LActor_updateDynamicFirstCache00);
-   tolua_function(tolua_S,(char*)"updateRanking",tolua_server_LActor_updateRanking00);
-   tolua_function(tolua_S,(char*)"getRankDataByType",tolua_server_LActor_getRankDataByType00);
-   tolua_function(tolua_S,(char*)"getRanking",tolua_server_LActor_getRanking00);
    tolua_function(tolua_S,(char*)"getRankCacheByType",tolua_server_LActor_getRankCacheByType00);
    tolua_function(tolua_S,(char*)"regAsynEvent",tolua_server_LActor_regAsynEvent00);
    tolua_function(tolua_S,(char*)"getGuildSkillAttrs",tolua_server_LActor_getGuildSkillAttrs00);
@@ -27555,6 +27533,8 @@ int tolua_server_open (lua_State* tolua_S)
    tolua_function(tolua_S,(char*)"GetPVMRankByPlayerID",tolua_server_LActor_GetPVMRankByPlayerID00);
    tolua_function(tolua_S,(char*)"GetPVMRankSize",tolua_server_LActor_GetPVMRankSize00);
    tolua_function(tolua_S,(char*)"UpdataPvmRankOldData",tolua_server_LActor_UpdataPvmRankOldData00);
+   tolua_function(tolua_S,(char*)"GetZhulingToitalLv",tolua_server_LActor_GetZhulingToitalLv00);
+   tolua_function(tolua_S,(char*)"GetStoneTotalLv",tolua_server_LActor_GetStoneTotalLv00);
   tolua_endmodule(tolua_S);
   tolua_module(tolua_S,(char*)"Fuben",0);
   tolua_beginmodule(tolua_S,(char*)"Fuben");
@@ -29204,6 +29184,9 @@ int tolua_server_open (lua_State* tolua_S)
   tolua_module(tolua_S,(char*)"LRedis",0);
   tolua_beginmodule(tolua_S,(char*)"LRedis");
    tolua_function(tolua_S,(char*)"Zadd",tolua_server_LRedis_Zadd00);
+   tolua_function(tolua_S,(char*)"GetRankList",tolua_server_LRedis_GetRankList00);
+   tolua_function(tolua_S,(char*)"GetRankListWithScore",tolua_server_LRedis_GetRankListWithScore00);
+   tolua_function(tolua_S,(char*)"RemoveSetMemberByRange",tolua_server_LRedis_RemoveSetMemberByRange00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"LuaSocket","LuaSocket","",NULL);
   tolua_beginmodule(tolua_S,(char*)"LuaSocket");

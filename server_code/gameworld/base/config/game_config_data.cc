@@ -12,6 +12,7 @@
 #include "guild/guild_config.h"
 #include "neigongsystem/neigong_config.h"
 #include "prestige/prestige_helper.h"
+#include "rank/rank_config.h"
 
 const char GameConfigData::IncludeFileName[] = "data/dataconfig.txt";
 
@@ -95,7 +96,7 @@ bool GameConfigData::LoadConfig()
 	if (!GuildConfig::LoadGuildLevel(this)) return false;
 	if (!NeigongConfig::LoadNeigongConfig(this)) return false;
 	if (!PrestigeHelper::LoadPrestigeConfig(this)) return false;
-
+	if (!RankConfigPool::Load(this)) return false;
 	//if (!LoadConfigTerms())
 	//	return false;
 

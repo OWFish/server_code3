@@ -118,10 +118,7 @@ bool EquipSystem::EquipItem(Equip *item, short slot)
 	if (old)
 		equip_bag->AddItem(old, true, false);
 
-	OnEquipEvent(slot);
-
 	CalcAttribute(true);
-
 
 	static LogSender* log_sender = ServerInstance()->GetLogClient();
 	auto actor = role_->GetActor();
@@ -144,6 +141,8 @@ bool EquipSystem::EquipItem(Equip *item, short slot)
 		olditem,
 		slotstr, "change", "", "", ""
 	);
+
+	OnEquipEvent(slot);
 
 	return true;
 }
@@ -184,8 +183,6 @@ bool EquipSystem::EquipGodItem(Equip *item, short slot)
 	if (old)
 		equip_bag->AddItem(old, true, false);
 
-	OnEquipEvent(slot);
-
 	CalcAttribute(true);
 
 
@@ -210,7 +207,7 @@ bool EquipSystem::EquipGodItem(Equip *item, short slot)
 		olditem,
 		slotstr, "change", "", "", ""
 	);
-
+	OnEquipEvent(slot);
 	return true;
 }
 
@@ -245,8 +242,6 @@ bool EquipSystem::TakeOutEquip(int equiptype , int slot) {
 	
 	NotifyUpdateEquip(slot, NULL, equiptype);
 
-	OnEquipEvent(slot);
-
 	CalcAttribute(true);
 
 	static LogSender* log_sender = ServerInstance()->GetLogClient();
@@ -267,7 +262,7 @@ bool EquipSystem::TakeOutEquip(int equiptype , int slot) {
 		"",
 		slotstr, "change", "", "", ""
 	);
-
+	OnEquipEvent(slot);
 	return true;
 }
 
@@ -408,8 +403,6 @@ void EquipSystem::EquipLevelup(short slot)
 	//通知前端
 	NotifyUpdateEquip(slot, (Equip*)newEquip);
 
-	OnEquipEvent(slot);
-
 	CalcAttribute(true);
 
 	const ComposeConfig *ccfg = ItemConfigPool::GetComposeConfig(equipId);
@@ -463,7 +456,7 @@ void EquipSystem::EquipLevelup(short slot)
 		olditem,
 		slotstr, "levelup", "", "", ""
 	);
-
+	OnEquipEvent(slot);
 }
 
 void EquipSystem::ReqLevelup(int result, int itemId)

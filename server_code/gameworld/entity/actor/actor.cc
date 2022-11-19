@@ -31,7 +31,6 @@
 #include "systems/cswar/war_system.h"
 #include "ai/ai_mgr.h"
 #include "ai/ai.h"
-#include "../redis/RedisConnect.h"
 #ifndef _MSC_VER
 #include <sys/time.h>
 #endif

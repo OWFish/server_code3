@@ -81,6 +81,11 @@ DynamicRanking* DynamicRankingMgr::Add(const char* name, int maxitem, int displa
 		return NULL;
 	}
 
+	if (allocator_ == nullptr)
+	{
+		return nullptr;
+	}
+
 	rank = (DynamicRanking*)allocator_->AllocBuffer(sizeof(DynamicRanking));
 	new(rank)DynamicRanking(name, maxitem, display != 0 ? true : false);
 	ranking_array_.add(rank);

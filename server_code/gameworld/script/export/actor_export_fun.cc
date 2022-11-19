@@ -2858,7 +2858,17 @@ void refreshMiJi(void* actor, int roleid)
 	if (role == NULL) return;
 	role->GetMiJiSystem()->Refresh();
 }
+void* getRankCacheByType(int type, int min, int max)
+{
+	static auto mgr = GetGameEngine()->GetRankingSystem()->GetStaticRankingMgr();
+	auto basic = mgr->GetRanking((RankingType)type);
+	if (!basic)
+	{
+		return nullptr;
+	}
 
+	return basic->GetRankCache((size_t)min, (size_t)max);
+}
 
 Attribute* getTitleAttrs(void* et)
 {
@@ -2897,68 +2907,6 @@ void setRoleTitle(void* et, int roleId, int tId)
 		Actor* actor = (Actor*)et;
 		actor->GetTitleSystem()->setRoleTitle(roleId, tId);
 	}
-}
-
-void* getRainingFirstCacheByType(int type)
-{
-	return GetGameEngine()->GetRankingSystem()->GetStaticRankingMgr()->GetFirstCacheByType((RankingType)type);
-}
-
-void updateDynamicFirstCache(int actor_id, int type)
-{
-	GetGameEngine()->GetRankingSystem()->GetStaticRankingMgr()->UpdateDynamicFirstCache(actor_id,(RankingType) type);
-}
-
-void updateRanking(void)
-{
-	GetGameEngine()->GetRankingSystem()->GetStaticRankingMgr()->UpdateRank();
-}
-
-int  getRankDataByType(lua_State* l)
-{
-	int type = (int)lua_tonumber(l, 1);
-	static auto mgr = GetGameEngine()->GetRankingSystem()->GetStaticRankingMgr();
-	auto basic = mgr->GetRanking((RankingType)type);
-	if (basic)
-	{
-		auto ret = basic->GetRankData();
-		if (ret.size() > 0)
-		{
-			LuaHelp::PushDataPointerToTable(l, (void**)&ret[0], ret.size());
-			return 1;
-		}
-		return 0;
-	}
-	else
-	{
-		return 0;
-	}
-}
-
-int getRanking(int type, void * et)
-{
-	if (!et || ((Entity*)et)->GetType() != EntityType_Actor) return 0;
-	Actor* actor = (Actor*)et;
-	static auto mgr = GetGameEngine()->GetRankingSystem()->GetStaticRankingMgr();
-	auto basic = mgr->GetRanking((RankingType)type);
-	if (!basic)
-	{
-		return 0;
-	}
-
-	return basic->GetActorRanking(actor);
-}
-
-void* getRankCacheByType(int type, int min, int max)
-{
-	static auto mgr = GetGameEngine()->GetRankingSystem()->GetStaticRankingMgr();
-	auto basic = mgr->GetRanking((RankingType)type);
-	if (!basic)
-	{
-		return nullptr;
-	}
-
-	return basic->GetRankCache((size_t)min,(size_t)max);
 }
 
 void regAsynEvent(int actorid)
@@ -4388,6 +4336,24 @@ int GetPVMRankSize()
 void UpdataPvmRankOldData()
 {
 	//TianTiManger::GetInstance()->LoadOldData();
+}
+
+int GetZhulingToitalLv(void * actor)
+{
+	if (nullptr == actor || static_cast<Entity *>(actor)->GetType() != EntityType_Actor)
+		return 0;
+
+	auto pRole = ((Actor*)actor)->GetRoleSystem()->GetRoleById(0);
+	return pRole->GetZhulingSystem()->GetToatlLv();
+}
+
+int GetStoneTotalLv(void * actor)
+{
+	if (nullptr == actor || static_cast<Entity *>(actor)->GetType() != EntityType_Actor)
+		return 0;
+
+	auto pRole = ((Actor*)actor)->GetRoleSystem()->GetRoleById(0);
+	return pRole->GetStoneSystem()->GetTotalLv();
 }
 
 }

@@ -24,7 +24,8 @@ public:
 
 	//设置等级
 	void SetLevel(int posId, int level);
-
+	//获取总等级
+	int GetToatlLv();
 private:
 	void CalcAttribute(bool notify);
 

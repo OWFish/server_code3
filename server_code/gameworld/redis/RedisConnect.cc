@@ -5,11 +5,13 @@ CRedisConnect::CRedisConnect()
 {
 	_context_ptr = nullptr;
 	_param_ptr = std::make_shared<tg_redis_param>();
+	mLastTime = 0;
 }
 
 CRedisConnect::CRedisConnect(const std::shared_ptr<tg_redis_param>& param)
 	:_context_ptr(nullptr)
 	, _param_ptr(param)
+	, mLastTime(0)
 {
 }
 
@@ -83,6 +85,23 @@ std::shared_ptr<CRedisResult> CRedisConnect::exec_cmd(const char * command, ...)
 	va_start(ap, command);
 	auto reply = std::make_shared<CRedisResult>(static_cast<redisReply*>(redisvCommand(_context_ptr, command, ap)));
 	va_end(ap);
+	if (reply->is_null())
+	{
+		_last_error = "Reply is null!";
+		return nullptr;
+	}
+	if (reply->is_error())
+	{
+		_last_error = reply->get_str();
+		return nullptr;
+	}
+
+	return reply;
+}
+
+std::shared_ptr<CRedisResult> CRedisConnect::testexec_cmd(const char * command, ...)
+{
+	auto reply = std::make_shared<CRedisResult>(static_cast<redisReply*>(redisCommand(_context_ptr, command)));
 	if (reply->is_null())
 	{
 		_last_error = "Reply is null!";
@@ -177,15 +196,27 @@ bool CRedisConnect::lset(const char * list_name, int index, const char * value)
 	return nullptr != exec_cmd("LSET %s %d %s", list_name, index, value);
 }
 
-bool CRedisConnect::zadd(const char * set_name, int score, const char * value)
+int CRedisConnect::zcard(const char * set_name)
 {
-	return nullptr != exec_cmd("ZADD %s %d %s", set_name, score, value);
+	auto tmp = exec_cmd("ZCARD %s", set_name);
+	if (tmp)
+	{
+		return tmp->get_integer();
+	}
+}
+
+bool CRedisConnect::zadd(const char * set_name, long long score, const char * value)
+{
+	char commond[1000];
+	sprintf(commond, "ZADD %s %lld %s", set_name, score, value);
+	//return nullptr != exec_cmd(commond);
+	return nullptr != testexec_cmd(commond);
 }
 
 int64_t CRedisConnect::zrank(const char * set_name, const char * value)
 {
 	auto ptr = exec_cmd("ZRANK %s %s", set_name, value);
-	if (ptr->is_ok())
+	if (ptr != nullptr && ptr->is_ok())
 	{
 		return ptr->get_integer();
 	}
@@ -205,6 +236,26 @@ std::shared_ptr<CRedisResult> CRedisConnect::hget(const char * hash_name, const 
 std::shared_ptr<CRedisResult> CRedisConnect::zrange(const char * set_name, uint64_t start, uint64_t end)
 {
 	return exec_cmd("ZRANGE %s %d %d", set_name, start, end);
+}
+
+std::shared_ptr<CRedisResult> CRedisConnect::zrangebywithscores(const char * set_name, uint64_t start, uint64_t end)
+{
+	return exec_cmd("ZRANGE %s %d %d WITHSCORES", set_name, start, end);
+}
+
+std::shared_ptr<CRedisResult> CRedisConnect::zrevrange(const char * set_name, uint64_t start, uint64_t end)
+{
+	return exec_cmd("ZREVRANGE  %s %d %d", set_name, start, end);
+}
+
+std::shared_ptr<CRedisResult> CRedisConnect::zrevrangebywithscores(const char * set_name, uint64_t start, uint64_t end)
+{
+	return exec_cmd("ZREVRANGE  %s %d %d WITHSCORES", set_name, start, end);
+}
+
+bool CRedisConnect::zremrangebyrank(const char * set_name, uint64_t start, uint64_t end)
+{
+	return nullptr != exec_cmd("ZREMRANGEBYRANK %s %d %d", set_name, start, end);
 }
 
 std::shared_ptr<CRedisResult> CRedisConnect::lrange(const char * list_name, size_t start, size_t end)
@@ -241,6 +292,63 @@ bool CRedisConnect::exists(const char * key)
 bool CRedisConnect::del(const char * key)
 {
 	return nullptr != exec_cmd("DEL %s", key);
+}
+
+int CRedisConnect::get_data(std::shared_ptr<CRedisResult> result, const char *szcmd)
+{
+	if (result == nullptr)
+	{
+		return 0;
+	}
+	auto pReplay = result->get_reply();
+	int ret = 0;
+	int lrank = 0;
+	switch (pReplay->type)
+	{
+	case REDIS_REPLY_STATUS:
+		ret = -1;
+		printf("[%s] status [%s]\n", szcmd, pReplay->str);
+		break;
+	case REDIS_REPLY_ERROR:
+		ret = -1;
+		printf("[%s] error [%s]\n", szcmd, pReplay->str);
+		break;
+	case REDIS_REPLY_STRING:
+		ret = 0;
+		printf("[%s] get string , value : %s\n", szcmd, pReplay->str);
+		break;
+	case REDIS_REPLY_INTEGER:
+		ret = 0;
+		printf("[%s] get integer , value : %d\n", szcmd, pReplay->integer);
+		break;
+	case REDIS_REPLY_ARRAY:
+		ret = 0;
+		for (int i = 0; i < pReplay->elements; i++)
+		{
+			if (i%2 == 0)
+			{
+				lrank++;
+
+				printf("[%s] , Actor Rank [%d] , Actor ID : %s\n", szcmd, lrank, pReplay->element[i]->str);
+			}
+			else
+			{
+				printf(" Actor Score : %s\n", pReplay->element[i]->str);
+			}
+			
+		}
+		break;
+	case REDIS_REPLY_NIL:
+		ret = 0;
+		printf("[%s] get null\n", szcmd);
+		break;
+	default:
+		ret = -1;
+		printf("[%s] get error\n", szcmd);
+		break;
+	}
+
+	return ret;
 }
 
 int CRedisConnect::db_no()

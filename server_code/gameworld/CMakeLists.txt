@@ -42,6 +42,7 @@ else()
 		#lua
 		srv
 		common
+		hiredis
 	)
 endif(MSVC)
 

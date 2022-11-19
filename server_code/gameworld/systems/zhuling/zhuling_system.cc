@@ -62,6 +62,17 @@ void ZhulingSystem::SetLevel(int posId, int level)
 	pSlotData.zhuling_lv = level;
 }
 
+int ZhulingSystem::GetToatlLv()
+{
+	int ret = 0;
+	for (int pos = EquipSlotType_Weapon; pos < EquipSlotType_Max; ++pos)
+	{
+		EquipSlotData &pSlotData = equip_data_->slot_data[pos];
+		ret += pSlotData.zhuling_lv;
+	}
+	return ret;
+}
+
 std::vector<int> ZhulingSystem::GetZhulingData()
 {
 	std::vector<int> zhulingList;

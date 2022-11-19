@@ -347,13 +347,6 @@ void setRoleTitle(void* et, int roleId, int tId);
 void changeMiJi(void* actor, int roleid, int oldId, int id, bool refresh, int param1, int param2, int param3, int power);
 void refreshMiJi(void* actor, int roleid);
 
-void* getRainingFirstCacheByType(int type);
-void updateDynamicFirstCache(int actor_id, int type);
-void updateRanking(void);
-int  getRankDataByType(lua_State* l);
-
-
-int getRanking(int type, void * et);
 void* getRankCacheByType(int type,int min, int max);
 void regAsynEvent(int actorid);
 Attribute* getGuildSkillAttrs(void* actor, int roleId);
@@ -511,6 +504,11 @@ int GetPVMRankByPlayerID(int actorid);
 int GetPVMRankSize();
 
 void UpdataPvmRankOldData();
+
+int GetZhulingToitalLv(void* actor);
+
+int GetStoneTotalLv(void* actor);
+
 };
 //tolua_end
 

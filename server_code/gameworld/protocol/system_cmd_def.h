@@ -85,7 +85,10 @@ namespace Protocol {
 		CMD_Auction = 76, //拍卖系统
 		CMD_Cross3Vs3 = 77,	//跨服3v3
 		CMD_YuanbaoRecycle = 78,//元宝回收
+		CMD_Advert = 79, //广告系统
 		CMD_Field = 80,	// --野外地图
+		CMD_AFK = 81, //挂机
+		CMD_CITYWAR = 82, //城战
 		CMD_Login = 255,
 
 
@@ -143,7 +146,7 @@ namespace Protocol {
 		cBaseCmd_GetFubenMoveLine = 31,
 		cBaseCmd_StopAi = 33,
 		cBaseCmd_SetSendPackList = 34,
-
+		cBaseCmd_BattleComparison = 38, //战力对比数据
 		cBaseCmd_HeartBeat = 255,
 	};
 
@@ -259,6 +262,7 @@ namespace Protocol {
 		cSkillCmd_TogetherHitPuncheLvup = 13,
 		cSkillCmd_TogeatterExchange = 14,
 		cSkillCmd_ChoiseSkill = 15,
+		cSkillCmd_UnInstallSkill = 16, //卸载自选技能id
 	};
 
 	enum BagCmd {
@@ -281,6 +285,8 @@ namespace Protocol {
 
 		sBagCmd_UseOptionalGift = 8,
 		cBagCmd_UseOptionalGift = 8,
+
+		cBagCmd_UseSkillExpItem = 9,
 	};
 
 	enum EquipCmd {
@@ -407,10 +413,13 @@ namespace Protocol {
 		sMailCmd_DeleteMail = 3,
 		sMailCmd_ReAward = 4,
 		sMailCmd_AddMail = 5,
-
+		sMailCmd_ReqReadAll = 6,
+		sMailCmd_DeleteReadAll = 7,
 
 		cMailCmd_Read = 2,
 		cMailCmd_Award = 4,
+		cMailCmd_ReadAll = 6,
+		cMailCmd_DeleteReadAll = 7,
 	};
 
 	enum TaskCmd {
@@ -535,13 +544,15 @@ namespace Protocol {
 		sStoreCmd_BuyIntegralItem = 5,
 		sCMD_StoreFeatsInfo = 6,
 		sCMD_StoreFeatsExchange = 7,
+		sStoreCmd_FashionStoreData = 8,
 
 		cStoreCmd_DataRequest = 1,
 		cStoreCmd_Buy = 2,
 		cStoreCmd_Refresh = 3,
 		cStoreCmd_BuyIntegralItem = 5,
 		cCMD_StoreFeatsInfo = 6,
-		cCMD_StoreFeatsExchange = 7,		
+		cCMD_StoreFeatsExchange = 7,
+		cCMD_StoreCheckRefresh = 8,
 	};
 
 	enum ExRingCmd {
@@ -727,6 +738,7 @@ namespace Protocol {
 		sRechargeCmd_PrivilegeMonthCardData = 11, // 下发特权数据
 		sRechargeCmd_MultiDayRechargeData = 12,
 		sRechargeCmd_LimitBuy = 13, // 限购信息
+		sRechargeCmd_FirstRechrgeData = 14, //首冲数据（新）
 		
 		cRechargeCmd_GetFirstRechargeReward = 2,
 		cRechargeCmd_GetDailyRechargeReward = 3,
@@ -847,8 +859,7 @@ namespace Protocol {
 		cTiantiCmd_RequestChallengesRecord = 3, //请求挑战记录
 		cTiantiCmd_RequestChallenge = 4, //请求挑战
 		cTiantiCmd_RequestBuyCount = 5, //请求购买挑战次数
-
-	
+		cTiantiCmd_RequestRecoverCount = 6,
 
 	};
 	enum Guild
@@ -880,7 +891,7 @@ namespace Protocol {
 		cGuildCmd_GuildSearchList = 29,
 		cGuildCmd_DonateBonFire = 30,
 		cGuildCmd_ChangeName = 31,
-
+		cGuildCmd_RequestApplyList = 32,
 		sGuildCmd_GuildInfo = 1,
 		sGuildCmd_MemberList = 2,
 		sGuildCmd_GuildList = 3,
@@ -908,6 +919,8 @@ namespace Protocol {
 		sGuildCmd_AutoApprove = 28,
 		sGuildCmd_GuildSearchList = 29,
 		sGuildCmd_bonFireUpdate = 30,
+		sGuildCmd_SelfApplyList = 32,
+		sGuildCmd_ErroCode = 40,
 	};
 	enum TitleCmd
 	{
@@ -1279,6 +1292,7 @@ namespace Protocol {
 		sGodWeaponCmd_FubenRankInfo = 9,
 		sGodWeaponCmd_TaskInfo = 10,
 		sGodWeaponCmd_SendFubenRewards = 13,
+		sGodWeaponCmd_ReqFastChallangeInfo = 15,
 
 		cGodWeaponCmd_SkillLevelUp = 3,
 		cGodWeaponCmd_FitGodItem = 4,
@@ -1291,6 +1305,7 @@ namespace Protocol {
 		cGodWeaponCmd_FinishTask = 12,
 		cGodWeaponCmd_GetFubenRewards = 13,
 		cGodWeaponCmd_ResetSkill = 14,
+		cGodWeaponCmd_ReqFastChallangeInfo = 15,
 	};
 
 	enum CampBattleCMD
@@ -1573,5 +1588,54 @@ namespace Protocol {
 	{
 		cYuanbaoRecycleCmd_Item = 1,//回收装备 
 		sYuanbaoRecycleCmd_ItemRet = 1,//回收结果
+	};
+
+	enum Advert
+	{
+		cGetAdvertAwards = 1, //背包，金币
+		sSendAdvertData = 1, //背包，金币
+	};
+
+	enum AddAdDayView
+	{
+		cAddAdDayViewTimes = 2, //每日观看完上传次数
+		sSendAdDayViewData = 2, //每日观看次数下发
+		cGetAdDayViewAwards = 3, //每日观看领奖
+	};
+
+	enum CMD_AFK
+	{
+		C2S_CMD_AFK_RequestGetReward = 2, //领取结算
+		C2S_CMD_AFK_RequestChangeMonster = 3, //更换挑战的怪物
+
+		//与客户端同步开始时间
+		S2C_CMD_AFK_ReturnStartTime = 1,
+		S2C_CMD_AFK_ReturnGetReward = 2,
+	};
+
+	enum CMD_CityWar
+	{
+		C2S_CMD_CityWar_CityDataUpdata = 1, //单个城池数据更新
+		C2S_CMD_CityWar_DeclareWar = 3, //宣战
+		C2S_CMD_CityWar_EnterFuBen = 4, //请求进入城战副本
+		C2S_CMD_CityWar_Appoint = 5, //任命守城镜像
+		C2S_CMD_CityWar_BuyRelive = 6, //购买复活次数
+		C2S_CMD_CityWar_BuyMonster = 7, //购买守城怪
+		C2S_CMD_CityWar_CityRecord = 10, //请求城池日志
+		C2S_CMD_CityWar_GuildRecord = 11, //请求公会日志
+		C2S_CMD_CityWar_AddBuf = 13, //给城池添加buf
+		C2S_CMD_CityWar_GetAward = 16, //自动领奖
+
+		S2C_CMD_CityWar_CityDataUpdata = 1, //单个城池数据更新
+		S2C_CMD_CityWar_AllCityData = 2, //所有城池简单数据
+		S2C_CMD_CityWar_DeclareWar = 3, //宣战结果
+		S2C_CMD_CityWar_BuyMonster = 7, //购买守城怪
+		S2C_CMD_CityWar_BroadCast = 8, //广播状态改变信息
+		S2C_CMD_CityWar_ChallangeResult = 9, //城池挑战结束
+		S2C_CMD_CityWar_CityRecord = 10, //请求城池日志
+		S2C_CMD_CityWar_GuildRecord = 11, //请求公会日志
+		S2C_CMD_CityWar_CantEnter = 12, //无法进入副本
+		S2C_CMD_CityWar_PlayerData = 14, //城战中玩家数据
+		S2C_CMD_CityWar_PlayerBufData = 15, //城战中玩家buf数据
 	};
 }

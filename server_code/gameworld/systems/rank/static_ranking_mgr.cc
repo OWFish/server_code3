@@ -8,28 +8,7 @@
 #include "actor/actor_asyn_mgr.h"
 
 
-
 #include "static_ranking_mgr.h"
-
-#include "power_rank.h"
-#include "level_rank.h"
-#include "wing_rank.h"
-#include "warrior_rank.h"
-#include "mage_rank.h"
-#include "taoistpriest_rank.h"
-#include "train_rank.h"
-#include "stone_rank.h"
-#include "zhanling_rank.h"
-#include "loong_soul_rank.h"
-#include "zhuangban/zhuangban.h"
-#include "knighthood_rank.h"
-#include "winglv_rank.h"
-#include "tujian_rank.h"
-#include "zhuan_sheng_rank.h"
-#include "equip_base_power_rank.h"
-#include "zhuling_rank.h"
-#include "prestige_rank.h"
-
 
 StaticRankingMgr::StaticRankingMgr()
 	: logic_timer_(1000)
@@ -72,29 +51,9 @@ void StaticRankingMgr::Destroy()
 
 bool StaticRankingMgr::Load()
 {
+	/*
 	next_save_time_ = GetGameEngine()->getMiniDateTime();
 	next_save_time_ = next_save_time_ / 1800 * 1800 + 1800;
-
-	
-
-	rank_map_[RankingType_Power] = new PowerRank();//战力榜单
-	rank_map_[RankingType_Level] = new LevelRank();//等级榜单
-	//rank_map_[RankingType_Wing] = new WingRank();//翅膀战力榜单
-	rank_map_[RankingType_Warrior] = new WarriorRank();//战士榜
-	rank_map_[RankingType_Mage] = new MageRank();//法师榜
-	rank_map_[RankingType_Taoistpriest] = new TaoistpriestRank();//道士榜
-	rank_map_[RankingType_Train] = new TrainRank();//爵位等级榜
-	//rank_map_[RankingType_Stone] = new StoneRank();//精炼总等级榜
-	rank_map_[RankingType_Zhuling] = new ZhulingRank();//铸造总等级榜单
-	//rank_map_[RankingType_ZhanLing] = new ZhanLingRank();
-	rank_map_[RankingType_LoongSoul] = new LoongSoulRank();//龙魂总星数
-	rank_map_[RankingType_Knighthood] = new KnighthoodRank();//勋章等级榜
-	rank_map_[RankingType_WingLv] = new WingLvRank();//翅膀总等级榜
-	rank_map_[RankingType_TuJianPower] = new TuJianRank();//图鉴总战力
-	rank_map_[RankingType_ZhuanSheng] = new ZhuanShengRank();//转生
-	rank_map_[RankingType_Prestige] = new PrestigeRank();//威望
-	rank_map_[RankingType_EquipBasePower] = new EquipBasePowerRank();//装备总评分
-
 
 	static BaseAllocator basic_alloc("dynamic ranking first cache ");
 	for (size_t i = 0;i < RankingType_Count; ++i)
@@ -111,10 +70,13 @@ bool StaticRankingMgr::Load()
 	UpdateRank();
 
 	return true;
+	*/
+	return false;
 }
 
 void StaticRankingMgr::RunOne(int64_t now_t)
 {
+	/*
 	if (!logic_timer_.CheckAndSet(now_t))
 		return;
 
@@ -122,9 +84,11 @@ void StaticRankingMgr::RunOne(int64_t now_t)
 	if (second_time > next_save_time_)
 	{
 		next_save_time_ = second_time + 1800;
-		
+
 		UpdateRank();
 	}
+	*/
+	
 }
 
 // 回调函数
@@ -168,12 +132,13 @@ void getMorshipData(Actor* tar)
 // 更新膜拜数据
 inline void UpdateMorshipData(int actorId)
 {
-	GetGameEngine()->GetActorAsynMgr()->RegActorEv(actorId, getMorshipData);
+	//GetGameEngine()->GetActorAsynMgr()->RegActorEv(actorId, getMorshipData);
 	//getMorshipData(nullptr, nullptr, nullptr);
 }
 
 void StaticRankingMgr::UpdateRank()
 {
+	/*
 	if (!ServerInstance()->IsCommonSrv()) return;
 	auto it = rank_map_.begin();
 	auto end = rank_map_.end();
@@ -182,6 +147,7 @@ void StaticRankingMgr::UpdateRank()
 	{
 		it->second->UpdataRank();
 	}
+	*/
 	
 	/*
 	power_rank_.UpdataRank();
@@ -257,6 +223,7 @@ void StaticRankingMgr::UpdateRank()
 
 void StaticRankingMgr::SendRankingDataByType(Actor* actor, RankingType type)
 {
+	/*
 	if (!actor)
 	{
 		return;
@@ -266,16 +233,19 @@ void StaticRankingMgr::SendRankingDataByType(Actor* actor, RankingType type)
 	{
 		it->second->SendData(actor);
 	}
+	*/
+	
 }
 
 DataPacket* StaticRankingMgr::GetFirstCacheByType(RankingType type)
 {
+	/*
 	{
 		auto it = rank_map_.find(type);
 		if (it != rank_map_.end())
 		{
 			//DataPacket* cache = it->second->GetFirstCache();
-		
+
 			return it->second->GetFirstCache();
 		}
 	}
@@ -287,10 +257,13 @@ DataPacket* StaticRankingMgr::GetFirstCacheByType(RankingType type)
 		}
 	}
 	return nullptr;
+	*/
+	return nullptr;
 }
 
 void StaticRankingMgr::AsyncUpdateDynamicFirstCache(Actor* actor, RankingType type)
 {
+	/*
 	if (dynamic_first_cache_.find(type) == dynamic_first_cache_.end())
 	{
 		return;
@@ -324,15 +297,20 @@ void StaticRankingMgr::AsyncUpdateDynamicFirstCache(Actor* actor, RankingType ty
 			cache << (int)p->pos3id;
 		}
 	}
+	*/
+	
 }
 
 
 void StaticRankingMgr::UpdateDynamicFirstCache(int actor_id, RankingType type)
 {
+	/*
 	if (dynamic_first_cache_.find((RankingType)type) == dynamic_first_cache_.end())
 	{
 		return;
 	}
+	*/
+	
 	//GetGameEngine()->GetActorAsynMgr()->RegActorEv(actor_id, std::bind(
 	//	&StaticRankingMgr::AsyncUpdateDynamicFirstCache, this, std::placeholders::_1,
 	//	type
@@ -341,10 +319,13 @@ void StaticRankingMgr::UpdateDynamicFirstCache(int actor_id, RankingType type)
 
 StaticRankBasic* StaticRankingMgr::GetRanking(RankingType type)
 {
+	/*
 	auto it = rank_map_.find(type);
 	if (it != rank_map_.end())
 	{
 		return it->second;
 	}
+	return nullptr;
+	*/
 	return nullptr;
 }

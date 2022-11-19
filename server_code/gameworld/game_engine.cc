@@ -14,8 +14,6 @@
 #include "systems/guild/guild.h"
 #include "systems/prestige/prestige_helper.h"
 #include "actor/tianti_mgr.h"
-#include <iostream>
-
 
 #ifdef _MSC_VER
 //#include "gtest/gtest.h"
@@ -49,7 +47,7 @@ GameEngine::GameEngine()
 	fuben_mgr_ = new FuBenMgr();
 	ai_mgr_ = new AiMgr();
 	guild_mgr_ = new GuildMgr();
-	
+
 	InitStaticVar();
 
 	reserveScene_ = NULL;
@@ -2202,19 +2200,15 @@ void GameEngine::OnAddLoginList(GameInterMsg& msg)
 
 void GameEngine::SetRedisCfg(const char * host, int port, int db_index, const char * pw)
 {
-	std::shared_ptr< tg_redis_param> redis_config_ = std::make_shared<tg_redis_param>();
-	redis_config_->db_index = db_index;
-	redis_config_->host = host;
-	redis_config_->port = port;
-	redis_config_->pwd = pw;
-	redis_config_->timeout.tv_sec = 3;
-	redis_config_->timeout.tv_usec = 0;
+	auto redis_config = std::make_shared<tg_redis_param>();
+	redis_config->db_index = db_index;
+	redis_config->host = host;
+	redis_config->port = port;
+	redis_config->pwd = pw;
+	redis_config->timeout.tv_sec = 3;
+	redis_config->timeout.tv_usec = 0;
 
-	if (global_redis_ == nullptr)
-	{
-		global_redis_ = std::make_shared<CRedisConnect>(redis_config_);
-	}
-
+	global_redis_ = std::make_shared<CRedisConnect>(redis_config);
 	if (!global_redis_->connect())
 	{
 		OutputMsg(rmError, ("Redis Not Connected Successful , %s"), global_redis_->get_last_err().c_str());
@@ -2222,7 +2216,7 @@ void GameEngine::SetRedisCfg(const char * host, int port, int db_index, const ch
 	}
 	else
 	{
-		std::cout << "[ Redis ] , Connected Successful ! " << std::endl;
+		OutputMsg(rmTip, "[ Redis Server Connected Successful ! ]");
 	}
 }
 
